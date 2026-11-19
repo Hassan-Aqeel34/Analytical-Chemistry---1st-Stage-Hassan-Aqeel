@@ -1,189 +1,2283 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analytical Chemistry — 1st Stage | Hassan Aqeel</title>
+  <title>الكيمياء التحليلية — المرحلة الأولى | كلية الصيدلة - جامعة البصرة</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Tajawal', 'Inter', 'sans-serif'],
+            en: ['Inter', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9ebff',
+              600: '#0f4c81',
+              700: '#0b3a63',
+              800: '#082a47',
+              900: '#051b2e'
+            },
+            accent: {
+              500: '#0d9488',
+              600: '#0f766e'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
   <style>
-    body { font-family: 'Cairo', 'Inter', sans-serif; background: #f8fafc; color: #0f172a; }
-    .ltr-box { direction: ltr; text-align: left; font-family: 'Inter', sans-serif; }
+    :root {
+      --bg-page: #f4f7fb;
+      --bg-card: #ffffff;
+      --bg-subtle: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border-soft: #e2e8f0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: 'Tajawal', 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .chem-formula, .ltr-block {
+      direction: ltr;
+      unicode-bidi: isolate;
+      font-family: 'IBM Plex Mono', 'Inter', monospace;
+    }
+
+    .en-text {
+      direction: ltr;
+      unicode-bidi: isolate;
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+    }
+
+    /* Search mark styling */
+    mark.search-hit {
+      background-color: #fef08a;
+      color: #854d0e;
+      padding: 0 3px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Flashcard 3D flip support */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col selection:bg-brand-600 selection:text-white">
 
-  <!-- Header -->
-  <header class="bg-slate-900 text-white shadow-md">
-    <div class="max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-4">
-      <div>
-        <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-3 py-1 rounded-full font-bold">
-          College of Pharmacy — Basrah University
-        </span>
-        <h1 class="text-2xl md:text-3xl font-extrabold mt-2">Analytical Chemistry — 1st Stage</h1>
-        <p class="text-sm text-slate-300 mt-1">منصة الدراسة التفاعلية للكيمياء التحليلية (العملي والنظري) — إعداد وتنظيم: <span class="text-emerald-400 font-bold">Hassan Aqeel</span></p>
+  <!-- Top Academic Banner & Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-brand-900/95 backdrop-blur border-b border-brand-800 text-white shadow-lg no-print">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <!-- University & Course Title -->
+        <div class="flex items-center gap-3 min-w-0">
+          <button
+            id="mobileMenuBtn"
+            type="button"
+            class="lg:hidden p-2.5 rounded-xl bg-brand-800 hover:bg-brand-700 text-slate-100 border border-brand-700 transition"
+            aria-label="فتح قائمة المحاضرات"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-cyan-600 flex items-center justify-center shrink-0 shadow-md">
+            <svg class="w-6 h-6 text-slate-950" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 3h6m-5 0v6.5L5.2 17.8A2 2 0 007 21h10a2 2 0 001.8-3.2L14 9.5V3" />
+            </svg>
+          </div>
+
+          <div class="truncate">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-400/30">
+                جامعة البصرة • كلية الصيدلة
+              </span>
+              <span class="text-xs text-slate-300 hidden sm:inline">المرحلة الأولى • أ.د. حسين ناصر السلمان</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white truncate mt-0.5">
+              الكيمياء التحليلية <span class="text-teal-300 font-en text-sm font-semibold">Analytical Chemistry</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Primary Action Controls -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- Translation / Bilingual Toggle -->
+          <button
+            id="toggleBilingualBtn"
+            type="button"
+            class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-800 hover:bg-brand-700 text-teal-200 border border-brand-700 transition flex items-center gap-1.5"
+            title="إظهار أو إخفاء الترجمة العربية التفصيلية"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            <span id="bilingualLabel">الترجمة العربية: مفعّلة</span>
+          </button>
+
+          <!-- Flashcard Self-Test Button -->
+          <button
+            id="openFlashcardsBtn"
+            type="button"
+            class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold bg-gradient-to-l from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 shadow-md transition flex items-center gap-1.5"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <span>اختبار البطاقات</span>
+          </button>
+
+          <!-- Bookmarks Filter Toggle -->
+          <button
+            id="bookmarksFilterBtn"
+            type="button"
+            class="px-3 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-800 hover:bg-brand-700 text-amber-300 border border-brand-700 transition flex items-center gap-1.5"
+          >
+            <span>★</span>
+            <span>المحفوظات</span>
+            <span id="bookmarksCountBadge" class="px-1.5 py-0.2 rounded-md bg-amber-400/20 text-amber-200 text-xs font-mono">0</span>
+          </button>
+        </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button onclick="toggleTranslation()" id="transBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold px-4 py-2 rounded-xl transition">
-          إخفاء الترجمة العربية
-        </button>
+
+      <!-- Track Switcher Tabs (Practical vs Theoretical) + Search & Progress -->
+      <div class="mt-3 pt-3 border-t border-brand-800/90 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <!-- Two Distinct Tracks -->
+        <div class="grid grid-cols-2 sm:inline-flex rounded-2xl bg-brand-950/80 p-1 border border-brand-700/80">
+          <button
+            id="tabPractical"
+            type="button"
+            data-track="practical"
+            class="track-tab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition flex items-center justify-center gap-2 bg-teal-500 text-slate-950 shadow"
+          >
+            <span>🧪</span>
+            <span>العملي <span class="font-en font-semibold">(Practical)</span></span>
+            <span class="text-[11px] px-1.5 py-0.5 rounded-md bg-slate-950/15 font-mono">5 Labs</span>
+          </button>
+
+          <button
+            id="tabTheoretical"
+            type="button"
+            data-track="theoretical"
+            class="track-tab px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold transition flex items-center justify-center gap-2 text-slate-200 hover:text-white"
+          >
+            <span>📘</span>
+            <span>النظري <span class="font-en font-semibold">(Theoretical)</span></span>
+            <span class="text-[11px] px-1.5 py-0.5 rounded-md bg-white/10 font-mono">5 Lec</span>
+          </button>
+        </div>
+
+        <!-- Live Search & Progress Bar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1 lg:max-w-xl">
+          <div class="relative flex-1">
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="ابحث في المحاضرات، القوانين، الكواشف، أو الأسئلة..."
+              class="w-full rounded-xl bg-brand-950/90 border border-brand-700 focus:border-teal-400 focus:ring-2 focus:ring-teal-400/30 text-sm text-white placeholder-slate-400 pr-9 pl-8 py-2 outline-none transition"
+            />
+            <svg class="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+            </svg>
+            <button
+              id="clearSearchBtn"
+              type="button"
+              class="hidden text-xs text-slate-400 hover:text-white absolute left-2.5 top-1/2 -translate-y-1/2 px-1"
+              aria-label="مسح البحث"
+            >✕</button>
+          </div>
+
+          <!-- Completion Progress Pill -->
+          <div class="bg-brand-950/80 border border-brand-700/80 rounded-xl px-3 py-1.5 min-w-[165px]">
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-slate-300 font-semibold">نسبة الإنجاز</span>
+              <span id="progressPercentText" class="font-mono font-bold text-teal-300">0%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-brand-800 overflow-hidden">
+              <div id="progressBarFill" class="h-full bg-gradient-to-l from-teal-400 to-emerald-400 transition-all duration-300 w-0"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Main Controls -->
-  <main class="max-w-6xl mx-auto w-full px-4 py-6 flex-1">
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
-      <!-- Track Switcher -->
-      <div class="flex gap-2">
-        <button onclick="switchTrack('practical')" id="btn-practical" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-blue-600 text-white transition">
-          العملي (Practical Labs)
-        </button>
-        <button onclick="switchTrack('theoretical')" id="btn-theoretical" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
-          النظري (Theoretical Lectures)
+  <!-- Toast / Status Banner (replaces alert/confirm) -->
+  <div id="toastBanner" class="hidden fixed bottom-5 left-5 z-50 max-w-sm bg-slate-900 text-white border border-slate-700 rounded-2xl shadow-2xl px-4 py-3 text-sm flex items-center gap-3">
+    <span class="w-2.5 h-2.5 rounded-full bg-teal-400 shrink-0"></span>
+    <span id="toastMessage" class="flex-1"></span>
+  </div>
+
+  <!-- Main Workspace Layout -->
+  <div class="max-w-7xl w-full mx-auto px-3 sm:px-6 py-6 flex-1 flex flex-col lg:flex-row gap-6 items-start">
+
+    <!-- Sidebar Navigation Drawer / Panel -->
+    <aside
+      id="sidebarNav"
+      class="fixed lg:static inset-y-0 right-0 z-40 w-80 max-w-[85vw] lg:w-80 shrink-0 bg-white lg:bg-transparent border-l lg:border-0 border-slate-200 shadow-2xl lg:shadow-none transform translate-x-full lg:translate-x-0 transition-transform duration-200 ease-out p-4 lg:p-0 overflow-y-auto max-h-screen lg:max-h-[calc(100vh-145px)] lg:sticky lg:top-36 no-print"
+    >
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div>
+            <h2 id="sidebarTrackTitle" class="font-extrabold text-slate-900 text-base">مختبرات العملي</h2>
+            <p id="sidebarTrackSubtitle" class="text-xs text-slate-500">5 تجارب ومحاضرات عملية متسلسلة</p>
+          </div>
+          <button
+            id="closeSidebarBtn"
+            type="button"
+            class="lg:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+            aria-label="إغلاق القائمة"
+          >✕</button>
+        </div>
+
+        <!-- Lectures / Labs List -->
+        <nav id="lectureNavList" class="space-y-2" aria-label="قائمة المحاضرات والأقسام"></nav>
+
+        <!-- Quick Jump Within Active Lecture -->
+        <div class="pt-3 border-t border-slate-100">
+          <div class="text-xs font-bold text-slate-500 mb-2">أقسام المحاضرة الحالية</div>
+          <div id="sectionJumpList" class="space-y-1 max-h-56 overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Backdrop -->
+    <div id="sidebarBackdrop" class="hidden fixed inset-0 z-30 bg-slate-950/50 backdrop-blur-xs lg:hidden no-print"></div>
+
+    <!-- Main Study Content Column -->
+    <main id="studyMainContent" class="flex-1 min-w-0 w-full space-y-6">
+
+      <!-- Track Hero Header Card -->
+      <section id="trackHeroCard" class="rounded-3xl bg-gradient-to-br from-brand-800 via-brand-700 to-slate-900 text-white p-5 sm:p-7 shadow-md border border-brand-700/60">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-teal-200 text-xs font-bold">
+              <span id="heroBadgeIcon">🧪</span>
+              <span id="heroBadgeText">المسار العملي — Practical Analytical Chemistry</span>
+            </div>
+            <h2 id="heroTitle" class="text-2xl sm:text-3xl font-extrabold leading-tight">
+              الكيمياء التحليلية العملية (المرحلة الأولى)
+            </h2>
+            <p id="heroDescription" class="text-slate-200 text-sm sm:text-base max-w-3xl leading-relaxed">
+              تغطي السلامة المختبرية والأدوات الزجاجية، تحضير المحاليل من المواد الصلبة والسائلة، وتقييس المحاليل القياسية وتعيين نسبة حامض الخليك في الخل.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0 self-start md:self-center no-print">
+            <button
+              id="prevLectureBtn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold border border-white/15 transition disabled:opacity-40"
+            >
+              → السابق
+            </button>
+            <button
+              id="nextLectureBtn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 text-xs sm:text-sm font-extrabold transition disabled:opacity-40"
+            >
+              التالي ←
+            </button>
+          </div>
+        </div>
+
+        <!-- Lecture Switcher Pills inside Active Track -->
+        <div id="lecturePillsBar" class="mt-5 pt-4 border-t border-white/15 flex items-center gap-2 overflow-x-auto pb-1 no-print"></div>
+      </section>
+
+      <!-- Active Lecture Container -->
+      <div id="activeLectureContainer" class="space-y-6"></div>
+
+      <!-- Empty Search / Bookmarks State -->
+      <div id="emptyFilterState" class="hidden bg-white rounded-3xl border border-dashed border-slate-300 p-10 text-center space-y-3">
+        <div class="text-4xl">🔎</div>
+        <h3 id="emptyFilterTitle" class="text-lg font-extrabold text-slate-800">لا توجد نتائج مطابقة</h3>
+        <p id="emptyFilterDesc" class="text-sm text-slate-500 max-w-md mx-auto">
+          جرّب البحث بكلمة أخرى أو ألغِ فلتر المحفوظات لعرض جميع أقسام المحاضرة.
+        </p>
+        <button
+          id="resetFiltersBtn"
+          type="button"
+          class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold transition"
+        >
+          إعادة ضبط البحث والفلاتر
         </button>
       </div>
+    </main>
+  </div>
 
-      <!-- Search -->
-      <div class="flex-1 min-w-[220px] max-w-md">
-        <input id="searchInput" oninput="renderContent()" type="text" placeholder="ابحث عن تجربة، محاضرة، قانون، أو مصطلح..."
-          class="w-full border border-slate-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  <!-- Flashcard Self-Test Modal -->
+  <div
+    id="flashcardModal"
+    class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 no-print"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="flashcardModalTitle"
+  >
+    <div class="bg-white rounded-3xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="bg-brand-900 text-white px-5 py-4 flex items-center justify-between">
+        <div>
+          <h3 id="flashcardModalTitle" class="font-extrabold text-base sm:text-lg">بطاقات الاختبار الذاتي (Flashcards)</h3>
+          <p class="text-xs text-slate-300">اضغط على البطاقة لقلبها وكشف الإجابة أو القانون أو الملاحظة</p>
+        </div>
+        <button
+          id="closeFlashcardsBtn"
+          type="button"
+          class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white font-bold transition"
+          aria-label="إغلاق نافذة البطاقات"
+        >✕</button>
+      </div>
+
+      <!-- Modal Controls -->
+      <div class="px-5 py-3 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5">
+          <button type="button" data-fc-scope="current" class="fc-scope-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-600 text-white">
+            المحاضرة الحالية
+          </button>
+          <button type="button" data-fc-scope="track" class="fc-scope-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 text-slate-700 hover:bg-slate-300">
+            المسار الحالي كامل
+          </button>
+          <button type="button" data-fc-scope="all" class="fc-scope-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-200 text-slate-700 hover:bg-slate-300">
+            العملي + النظري
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span id="flashcardCounter" class="text-xs font-mono font-bold text-slate-600 bg-white px-2.5 py-1 rounded-lg border border-slate-200">
+            1 / 1
+          </span>
+          <button
+            id="shuffleFlashcardsBtn"
+            type="button"
+            class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-amber-100 hover:bg-amber-200 text-amber-900 transition"
+          >
+            🔀 خلط
+          </button>
+        </div>
+      </div>
+
+      <!-- Card Stage -->
+      <div class="p-5 sm:p-6">
+        <div id="flashcardStage" class="perspective-1000 cursor-pointer select-none">
+          <div id="flashcardInner" class="relative min-h-[260px] transition-transform duration-500 transform-style-3d">
+            <!-- Front -->
+            <div class="backface-hidden rounded-2xl border-2 border-brand-100 bg-gradient-to-br from-brand-50/70 to-white p-6 min-h-[260px] flex flex-col justify-between shadow-inner">
+              <div class="flex items-center justify-between gap-2">
+                <span id="fcCategoryBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-brand-100 text-brand-800"></span>
+                <span class="text-xs text-slate-400 font-semibold">السؤال • اضغط للقلب</span>
+              </div>
+              <div id="fcQuestion" class="my-4 text-center text-lg sm:text-xl font-extrabold text-slate-900 leading-relaxed"></div>
+              <div class="text-center text-xs text-teal-700 font-bold">انقر لإظهار الإجابة النموذجية</div>
+            </div>
+
+            <!-- Back -->
+            <div class="rotate-y-180 backface-hidden absolute inset-0 rounded-2xl border-2 border-teal-200 bg-gradient-to-br from-teal-50/70 to-white p-6 min-h-[260px] flex flex-col justify-between overflow-y-auto">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-teal-100 text-teal-900">الإجابة والشرح</span>
+                <span class="text-xs text-slate-400 font-semibold">انقر للعودة للسؤال</span>
+              </div>
+              <div id="fcAnswer" class="my-3 text-sm sm:text-base text-slate-800 leading-relaxed space-y-2"></div>
+              <div id="fcFormula" class="text-center"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="mt-5 flex items-center justify-between gap-3">
+          <button
+            id="prevCardBtn"
+            type="button"
+            class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm font-bold transition"
+          >
+            → البطاقة السابقة
+          </button>
+          <button
+            id="flipCardBtn"
+            type="button"
+            class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold transition"
+          >
+            قلب البطاقة
+          </button>
+          <button
+            id="nextCardBtn"
+            type="button"
+            class="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-sm font-extrabold transition"
+          >
+            البطاقة التالية ←
+          </button>
+        </div>
       </div>
     </div>
-
-    <!-- Content Container -->
-    <div id="contentArea" class="space-y-4"></div>
-  </main>
+  </div>
 
   <!-- Footer -->
-  <footer class="bg-slate-900 text-slate-300 py-5 mt-10 text-center text-sm">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <span>Analytical Chemistry — 1st Stage | Practical &amp; Theoretical</span>
-      <span>Prepared by <strong class="text-white">Hassan Aqeel</strong></span>
+  <footer class="bg-brand-950 text-slate-300 border-t border-brand-800 mt-12 py-6 px-4 text-center text-xs sm:text-sm no-print">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <span class="font-bold text-white">الكيمياء التحليلية — المرحلة الأولى</span> • جامعة البصرة — كلية الصيدلة (أ.د. حسين ناصر السلمان)
+      </div>
+      <div class="text-slate-400">
+        منصة مراجعة تفاعلية شاملة لمساري العملي والنظري • يتم حفظ التقدم والمحفوظات تلقائياً على متصفحك
+      </div>
     </div>
   </footer>
 
+  <!-- Complete Curriculum Data & Interactive Application Logic -->
   <script>
-    const studyData = {
-      practical: [
-        {
-          title: "Lab 1: Safety Standards, Glassware & Equipment",
-          arTitle: "المختبر 1: معايير السلامة والأدوات الزجاجية والمعدات",
-          summaryEn: "Ten lab safety rules, fume hood sash control, conical/volumetric flasks, beakers, graduated cylinders, pipettes, burettes, watch glass, tripod, wire gauze, and Bunsen burner.",
-          summaryAr: "قواعد السلامة العشرة داخل المختبر، استخدام خزانة سحب الغازات، والدورق المخروطي والحجمي والبيكر والأسطوانة المدرجة والماصة والسحاحة وموقد بنسن."
-        },
-        {
-          title: "Lab 2: Titrimetric Analysis & Solution Equations",
-          arTitle: "المختبر 2: التحليل الحجمي وقوانين تحضير المحاليل",
-          summaryEn: "Neutralization, redox, precipitation, and complexation titrations; primary vs. secondary standards; N = (wt * 1000)/(eq.wt * Vml); N = (sp.gr * % * 10)/eq.wt; N1V1 = N2V2.",
-          summaryAr: "أنواع التسحيح، المواد القياسية الأولية والثانوية، وقوانين تحضير المحاليل من المواد الصلبة والسائلة والتخفيف."
-        },
-        {
-          title: "Lab 3: Preparation & Standardization of HCl",
-          arTitle: "المختبر 3: تحضير وتقييس حامض الهيدروكلوريك (HCl)",
-          summaryEn: "Calculating normality of concentrated HCl from sp.gr and %, diluting to target normality, and standardizing against primary standard Na2CO3 using Methyl Orange (M.O).",
-          summaryAr: "حساب نورمالية حامض HCl المركز، تخفيفه، وتقييسه أمام كربونات الصوديوم القياسية باستخدام دليل الميثيل البرتقالي (M.O)."
-        },
-        {
-          title: "Lab 4: Standardization of Sodium Hydroxide (NaOH)",
-          arTitle: "المختبر 4: تقييس هيدروكسيد الصوديوم (NaOH)",
-          summaryEn: "Why NaOH cannot be a primary standard (hygroscopic and reacts with CO2), titrating against standard HCl with Phenolphthalein (ph.ph) to faint pink endpoint.",
-          summaryAr: "سبب عدم اعتبار NaOH مادة قياسية أولية (يمتص الرطوبة ويتفاعل مع CO2)، وتقييسه بحامض HCl القياسي باستخدام الفينولفثالين حتى اللون الوردي الخفيف."
-        },
-        {
-          title: "Lab 5: Acetic Acid Percentage in Vinegar",
-          arTitle: "المختبر 5: تعيين نسبة حامض الخليك في عينة خل",
-          summaryEn: "Weak acid (CH3COOH) with strong base (NaOH) titration using Phenolphthalein indicator, calculating weight of acetic acid and %w/v.",
-          summaryAr: "تسحيح حامض ضعيف (حامض الخليك) مع قاعدة قوية (NaOH) باستخدام دليل الفينولفثالين وحساب الوزن والنسبة المئوية %w/v."
-        }
-      ],
-      theoretical: [
-        {
-          title: "Lecture 1: Nature of Analytical Chemistry & Solutions",
-          arTitle: "المحاضرة 1: طبيعة الكيمياء التحليلية والمحاليل والإلكتروليتات",
-          summaryEn: "Qualitative vs. quantitative analysis; trace/ultratrace/macro/micro sensitivity; true, suspension, and colloidal solutions; strong vs. weak electrolytes.",
-          summaryAr: "التحليل النوعي والكمي، مستويات الحساسية، أنواع المحاليل (حقيقية، معلقة، غروية)، والإلكتروليتات القوية والضعيفة."
-        },
-        {
-          title: "Lecture 2: Units of Concentration",
-          arTitle: "المحاضرة 2: وحدات التركيز والحسابات التحليلية",
-          summaryEn: "Formula weight, moles & millimoles, Molarity (M), Formality (F), Normality (N), equivalent weight, mole fraction (X), %w/w, %w/v, %v/v, and ppt/ppm/ppb.",
-          summaryAr: "الوزن الصيغي، المولات والملي مولات، المولارية، الفورمالية، النورمالية، الكسر المولي، النسب المئوية، وأجزاء بالمليون والبليون."
-        },
-        {
-          title: "Lecture 5: Equilibrium Constants & pH Calculations",
-          arTitle: "المحاضرة 5: ثوابت الاتزان وحسابات pH و pOH والمخاليط",
-          summaryEn: "Autoionization of water (Kw = 1.0e-14 at 25°C), Ka and Kb relations, Arrhenius/Bronsted-Lowry/Lewis theories, pH, pOH, and strong acid/base mixtures.",
-          summaryAr: "التأين الذاتي للماء، ثوابت التفكك، نظريات الأحماض والقواعد، حسابات pH و pOH، وpH لمخاليط الأحماض والقواعد القوية."
-        },
-        {
-          title: "Lecture 8: Buffered Solutions & pH Indicators",
-          arTitle: "المحاضرة 8: المحاليل المنظمة ودلائل pH والسعة المنظمة",
-          summaryEn: "Buffer definition and composition, common ion effect, Henderson-Hasselbalch equation, buffer capacity (beta & beta_max), and pH indicator range.",
-          summaryAr: "تعريف المحلول المنظم وتكوينه، تأثير الأيون المشترك، معادلة هندرسون-هاسلبالخ، السعة المنظمة، ومدى عمل الدلائل."
-        },
-        {
-          title: "Lecture 9: Gravimetric Analysis & Ksp",
-          arTitle: "المحاضرة 9: التحليل الوزني ومعايرات الترسيب وحاصل الإذابة (Ksp)",
-          summaryEn: "Argentometric titrations (Mohr, Volhard, Fajans), precipitation and volatilization gravimetry, solubility product (Ksp), Q vs. Ksp, and inorganic/organic precipitants.",
-          summaryAr: "معايرات الترسيب (مور، فولهارد، فاجانز)، التحليل الوزني بالترسيب والتطاير، ثابت حاصل الإذابة Ksp، والمرسبات العضوية وغير العضوية."
-        }
-      ]
+    /**
+     * =========================================================================
+     * CURRICULUM DATA: PRACTICAL (5 LABS) & THEORETICAL (5 LECTURES)
+     * Source: Basra University - College of Pharmacy - 1st Stage Analytical Chem.
+     * =========================================================================
+     */
+    const CURRICULUM_DATA = {
+      practical: {
+        id: 'practical',
+        badgeIcon: '🧪',
+        badgeText: 'المسار العملي — Practical Analytical Chemistry',
+        title: 'الكيمياء التحليلية العملية (المرحلة الأولى)',
+        description:
+          'يتضمن معايير السلامة المختبرية والأدوات الزجاجية، تحضير المحاليل القياسية من المواد الصلبة والسائلة، وتجارب التسحيح والتقييس وتعيين نسبة حامض الخليك في الخل.',
+        sidebarTitle: 'مختبرات العملي',
+        sidebarSubtitle: '5 محاضرات وتجارب مختبرية',
+        lectures: [
+          {
+            id: 'lab-1',
+            code: 'Lab 1',
+            titleAr: 'المختبر 1: معايير السلامة والأدوات الزجاجية والمعدات المختبرية',
+            titleEn: 'Safety Standards, Glassware, and Laboratory Equipment',
+            sourceFile: 'Practical Analytical Chemistry. ER.pdf',
+            summaryAr:
+              'تعريف أهداف برنامج السلامة المختبرية، التعرف على فئات المخاطر الـ 12، قواعد السلامة العشر، إجراءات العمل داخل المختبر وهود السحب ومغادرته، ودراسة الأدوات الزجاجية والمعدات المختبرية الـ 16.',
+            sections: [
+              {
+                id: 'lab1-goals-hazards',
+                titleAr: 'أهداف برنامج السلامة وفئات المخاطر المختبرية الـ 12',
+                titleEn: 'Goals of Safety Program & 12 Hazard Recognition Categories',
+                arExplanation:
+                  'يهدف برنامج السلامة إلى حماية العاملين والطلبة والبيئة من الحوادث الكيميائية والفيزيائية والبيولوجية، وتدريب المتدرب على تمييز رموز المخاطر قبل بدء أي تجربة.',
+                points: [
+                  {
+                    en: 'Goals of Safety Program: Prevent injuries and lab accidents, protect personnel and equipment, ensure proper chemical handling and emergency response.',
+                    ar: 'أهداف برنامج السلامة: منع الإصابات والحوادث المختبرية، حماية الأفراد والمعدات، وضمان التداول الآمن للمواد الكيميائية والاستجابة السليمة للطوارئ.'
+                  },
+                  {
+                    en: '12 Hazard Recognition Categories: (1) Chemicals, (2) Radioactive, (3) Explosives, (4) Laser radiation, (5) Mechanicals / sharp instrument, (6) Glassware, (7) Fire, (8) Heat, (9) Electrics, (10) Animal, (11) Biological, plus (12) Eye & face hazard.',
+                    ar: 'فئات التعرف على المخاطر الـ 12: (1) المواد الكيميائية، (2) المواد المشعة، (3) المتفجرات، (4) إشعاع الليزر، (5) المخاطر الميكانيكية والأدوات الحادة، (6) الزجاجيات، (7) الحريق، (8) الحرارة، (9) الكهرباء، (10) الحيوانية، (11) البيولوجية، بالإضافة إلى (12) مخاطر العين والوجه.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما هي الفئات الـ 12 للتعرف على المخاطر المختبرية في المختبر الأول؟',
+                    a: '1. المواد الكيميائية (Chemicals)، 2. المشعة (Radioactive)، 3. المتفجرات (Explosives)، 4. الليزر (Laser radiation)، 5. الميكانيكية/الأدوات الحادة (Mechanicals/sharp instrument)، 6. الزجاجيات (Glassware)، 7. الحريق (Fire)، 8. الحرارة (Heat)، 9. الكهرباء (Electrics)، 10. الحيوانية (Animal)، 11. البيولوجية (Biological)، 12. العين والوجه (Eye & face hazard).'
+                  }
+                ]
+              },
+              {
+                id: 'lab1-rules-procedures',
+                titleAr: 'قواعد السلامة العشر وإجراءات العمل داخل المختبر وهود السحب وعند المغادرة',
+                titleEn: '10 Safety Rules, In-Lab & Fume Hood Measures, and Leaving Lab Protocol',
+                arExplanation:
+                  'الالتزام بقواعد السلامة العشر وضبط ارتفاع نافذة هود السحب (Sash) وتطبيق إجراءات المغادرة يحمي الطالب من الأبخرة السامة والانسكابات والتلوث.',
+                points: [
+                  {
+                    en: '10 Core Safety Rules: Wear lab coat & closed shoes, use eye/face protection & gloves, no eating/drinking/smoking/cosmetics in lab, never pipette by mouth, know safety equipment locations, label reagents clearly, handle flammables/acids carefully, never leave reactions unattended, report spills/injuries immediately, keep work area clean.',
+                    ar: 'قواعد السلامة العشر: ارتداء الصدرية المختبرية والأحذية المغلقة، استخدام واقيات العين/الوجه والقفازات، منع الأكل والشرب والتدخين ومستحضرات التجميل، منع السحب بالفم نهائياً، معرفة مواقع وسائل الطوارئ، عنونة الكواشف بوضوح، الحذر مع الأحماض والمواد القابلة للاشتعال، عدم ترك التفاعلات دون مراقبة، الإبلاغ الفوري عن الانسكابات أو الإصابات، والحفاظ على نظافة مكان العمل.'
+                  },
+                  {
+                    en: 'Fume Hoods (Sash Lowered vs Up): Keep sash lowered as much as possible during active work to maintain proper face velocity and containment; only raise sash when setting up/adjusting apparatus, and never put head inside the hood.',
+                    ar: 'هود السحب (إخفاض النافذة Sash مقابل رفعها): تُبقَى نافذة الهود منخفضة قدر الإمكان أثناء العمل للحفاظ على سرعة سحب الهواء وحجز الأبخرة، وتُرفع فقط عند ترتيب أو تعديل الأجهزة، مع عدم إدخال الرأس داخل الهود.'
+                  },
+                  {
+                    en: 'Before Leaving the Lab: Turn off burners/hotplates/gas/water/instruments, decontaminate bench and dispose of waste properly, remove gloves and wash hands thoroughly, take off lab coat when leaving lab areas.',
+                    ar: 'إجراءات ما قبل مغادرة المختبر: إطفاء المواقد والغاز والماء والأجهزة، تنظيف سطح العمل والتخلص من النفايات في حاوياتها المخصصة، خلع القفازات وغسل اليدين جيداً، وخلع الصدرية المختبرية عند الخروج.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'متى تُخفض نافذة هود السحب (Sash) ومتى تُرفع، وما القاعدة الذهبية أثناء استخدامه؟',
+                    a: 'تُخفض النافذة قدر الإمكان أثناء العمل لتأمين السحب وحماية المستخدم، وتُرفع فقط عند تركيب/تعديل الأدوات، ولا يُدخل الرأس أبداً داخل الهود.'
+                  }
+                ]
+              },
+              {
+                id: 'lab1-glassware-equipment',
+                titleAr: 'الأدوات الزجاجية والمعدات المختبرية الـ 16 وقائمة الأجهزة',
+                titleEn: '16 Glassware & Laboratory Equipment Items and Instruments List',
+                arExplanation:
+                  'معرفة وظيفة كل أداة زجاجية أو معدات مختبرية بدقة أمر أساسي لتجنب الأخطاء الحجمية والحرارية في الكيمياء التحليلية.',
+                table: {
+                  headers: ['الرقم', 'الأداة / المعدة (EN)', 'الترجمة والوصف المختبري الموجز'],
+                  rows: [
+                    ['1', 'Conical / Erlenmeyer flask', 'دورق مخروطي (إرلينماير) — مثالي للتسحيح والرج دون تناثر السوائل.'],
+                    ['2', 'Volumetric / measuring / graduated flask', 'دورق حجمي / معياري — لتحضير محاليل ذات تركيز معلوم بدقة عالية عند علامة العيار.'],
+                    ['3', 'Beaker', 'كأس زجاجي — للخلط والتسخين وحفظ السوائل مؤقتاً (ليس للقياس الحجمي الدقيق).'],
+                    ['4', 'Graduated / measuring cylinder', 'أسطوانة مدرجة — لقياس حجوم السوائل بصورة تقريبية مقارنة بالدورق الحجمي والماصة والسحاحة.'],
+                    ['5', 'Pipette (Simple vs Adjustable micropipette)', 'ماصة (بسيطة/حجمية أو مدرجة مقابل الماصة الدقيقة القابلة للتعديل Micropipette) — لنقل حجوم محددة من السوائل.'],
+                    ['6', 'Burette (Volumetric vs Digital)', 'سحاحة (حجمية زجاجية بصنبور أو رقمية Digital) — لإضافة المحلول القياسي تدريجياً بدقة أثناء التسحيح.'],
+                    ['7', 'Glass stirring rod', 'قضيب تحريك زجاجي — للتحريك والمساعدة في صب السوائل دون انسكاب.'],
+                    ['8', 'Watch glass', 'زجاجة ساعة — لتغطية الكؤوس، وزن المواد الصلبة، أو التبخير البطيء.'],
+                    ['9', 'Funnel', 'قمع — لنقل السوائل أو الترشيح مع ورق الترشيح.'],
+                    ['10', 'Tripod', 'حامل ثلاثي القوائم — لحمل الأدوات فوق لهب بنسن.'],
+                    ['11', 'Wire gauze (Woven vs Ceramic center)', 'شبكة سلكية (منسوجة Woven أو ذات مركز خزفي Ceramic center) — لتوزيع الحرارة بالتساوي ومنع تشقق الزجاج.'],
+                    ['12', 'Bunsen burner parts', 'أجزاء موقد بنسن — القاعدة، الأنبوب، صمام الغاز، وحلقة/فتحة تنظيم الهواء (Air collar/ports).'],
+                    ['13', 'Laboratory stand clamp', 'ماسك وحامل مختبري (Retort stand & clamp) — لتثبيت السحاحات والأدوات بإحكام.'],
+                    ['14', 'Titration apparatus', 'منظومة التسحيح — حامل، ماسك سحاحة، سحاحة، ودورق مخروطي يحتوي المحلول المعايَر والدليل.'],
+                    ['15', 'Balance & Heating/Stirring units', 'الميزان التحليلي/الحساس وأجهزة التسخين والتحريك المغناطيسي (Hotplate/Magnetic stirrer).'],
+                    ['16', 'Lab instruments list (pH meter, Spectrophotometer, Oven, Water bath, etc.)', 'قائمة الأجهزة المختبرية: جهاز قياس الـ pH، المطياف الضوئي، الفرن التجفيفي، الحمام المائي، المقطر المائي، وغيرها.']
+                  ]
+                },
+                flashcards: [
+                  {
+                    q: 'ما الفرق الجوهري بين الكأس الزجاجي (Beaker) والدورق الحجمي (Volumetric flask)؟',
+                    a: 'الدورق الحجمي مصمم للقياس الحجمي الدقيق وتحضير المحاليل القياسية عند حجم محدد بدقة، بينما الكأس الزجاجي للخلط والتسخين والقياس التقريبي فقط.'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lab-2',
+            code: 'Lab 2',
+            titleAr: 'المختبر 2: تحضير المحاليل من المواد الصلبة والسائلة',
+            titleEn: 'Preparation of Solutions from Solids and from Liquids',
+            sourceFile: 'Preparation of solution from solids and from liquids.pdf',
+            summaryAr:
+              'تحضير 1000 mL من محلول 0.1 N لكربونات الصوديوم (Na2CO3) من مادة صلبة قياسية أولية، وتحضير 500 mL من محلول 0.2 N لحامض الهيدروكلوريك (HCl) من حامض مركز مع توضيح القوانين والاعتبارات العملية.',
+            sections: [
+              {
+                id: 'lab2-solid-na2co3',
+                titleAr: 'تحضير محلول قياسي من مادة صلبة: 1000 mL من 0.1 N Na2CO3',
+                titleEn: 'Preparing Standard Solution from Solid: 1000 mL of 0.1 N Na2CO3',
+                arExplanation:
+                  'تُعد كربونات الصوديوم اللامائية (Na2CO3) مادة قياسية أولية (Primary standard) بعد تجفيفها حرارياً (270°C لمدة ساعتين) لإزالة الرطوبة، لذلك لا تحتاج إلى عملية تقييس (Standardization) إضافية بعد تحضيرها بدقة.',
+                points: [
+                  {
+                    en: 'Primary Standard Property: Anhydrous Na2CO3 is preheated at 270°C for 2 hours; its equivalent weight is Eq.wt = 106 / 2 = 53 g/eq. Because it is a primary standard, no standardization is needed.',
+                    ar: 'خاصية المادة القياسية الأولية: يُسخّن Na2CO3 مسبقاً عند 270°C لمدة ساعتين؛ ووزنه المكافئ Eq.wt = 106 / 2 = 53 g/eq. وبما أنه مادة قياسية أولية فلا يحتاج إلى تقييس.'
+                  },
+                  {
+                    en: 'Calculation for 1000 mL of 0.1 N Na2CO3: wt(g) = (N × Eq.wt × V_mL) / 1000 = (0.1 × 53 × 1000) / 1000 = 5.3 g.',
+                    ar: 'حساب وزن 1000 mL من 0.1 N Na2CO3: الوزن بالغرام = (0.1 × 53 × 1000) / 1000 = 5.3 g يُذاب في ماء مقطر ثم يُكمل الحجم إلى 1000 mL في دورق حجمي.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Normality from Solid Weight',
+                    expr: 'N = [ wt(g) × 1000 ] / [ Eq.wt(g/eq) × V(mL) ]',
+                    note: 'لتحضير 1000 mL من 0.1 N Na2CO3 (Eq.wt = 53) يلزم وزن 5.3 g من المادة الصلبة المجففة.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'كم غراماً من Na2CO3 يلزم لتحضير 1000 mL من محلول 0.1 N، وهل يحتاج إلى تقييس؟',
+                    a: 'يلزم 5.3 g (بعد تسخينه عند 270°C لمدة ساعتين)، ولا يحتاج إلى تقييس لأنه مادة قياسية أولية (Primary standard) ذات وزن مكافئ 53.'
+                  }
+                ]
+              },
+              {
+                id: 'lab2-liquid-hcl',
+                titleAr: 'تحضير محلول مخفف من سائل مركز: 500 mL من 0.2 N HCl',
+                titleEn: 'Preparing Dilute Solution from Concentrated Liquid: 500 mL of 0.2 N HCl',
+                arExplanation:
+                  'حامض الهيدروكلوريك المركز ليس مادة قياسية أولية بسبب تغير نقاوته/تركيزه وتطاير غاز HCl، لذا يُحسب تركيزه العياري أولاً من الكثافة النوعية والنسبة المئوية ثم يُخفف بقانون التخفيف ويُقيّس لاحقاً.',
+                points: [
+                  {
+                    en: 'Why HCl is Not a Primary Standard: Concentrated HCl has variable purity/concentration and loses HCl gas upon exposure.',
+                    ar: 'لماذا لا يُعد HCl مادة قياسية أولية: لأن HCl المركز ذو نقاوة/تركيز متغير ويتبخر منه غاز كلوريد الهيدروجين عند التعرض للهواء.'
+                  },
+                  {
+                    en: 'Concentrated HCl Normality: Given Eq.wt = 36.5, sp.gr = 1.19, % = 37% -> N_conc = (1.19 × 37 × 10) / 36.5 ≈ 12.06 N (or ~12 N).',
+                    ar: 'عيارية HCl المركز: بفرض Eq.wt = 36.5 و sp.gr = 1.19 و % = 37% فإن N_conc = (1.19 × 37 × 10) / 36.5 ≈ 12.06 N.'
+                  },
+                  {
+                    en: 'Dilution to 500 mL of 0.2 N HCl: Using N1 × V1 = N2 × V2 -> 12.06 × V1 = 0.2 × 500 -> V1 ≈ 8.29 mL (measured carefully and diluted to 500 mL with distilled water).',
+                    ar: 'التخفيف لتحضير 500 mL من 0.2 N HCl: بتطبيق N1 × V1 = N2 × V2 نحصل على V1 ≈ 8.29 mL يُسحب ويُخفف بالماء المقطر إلى 500 mL.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Normality of Concentrated Liquid',
+                    expr: 'N_conc = ( sp.gr × % × 10 ) / Eq.wt',
+                    note: 'لمحلول HCl المركز (sp.gr = 1.19، % = 37%، Eq.wt = 36.5) نحصل على N_conc ≈ 12.06 N.'
+                  },
+                  {
+                    label: 'Dilution Law',
+                    expr: 'N1 × V1 = N2 × V2',
+                    note: 'حجم HCl المركز اللازم لتحضير 500 mL بتركيز 0.2 N هو V1 = (0.2 × 500) / 12.06 ≈ 8.29 mL.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما القانون المستخدم لحساب عيارية محلول سائل مركز من الكثافة النوعية والنسبة المئوية؟',
+                    a: 'N = (sp.gr × % × 10) / Eq.wt، ثم يُستخدم قانون التخفيف N1 × V1 = N2 × V2 لتحديد الحجم المطلوب تخفيفه.'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lab-3',
+            code: 'Lab 3',
+            titleAr: 'المختبر 3 (التجربة 2): تحضير وتقييس حامض الهيدروكلوريك (HCl)',
+            titleEn: 'Experiment 2: Preparation and Standardization of HCl',
+            sourceFile: '2_5305755005498721040.pdf',
+            summaryAr:
+              'حساب عيارية HCl المركز (sp.gr = 1.18، % = 36.5%، Eq.wt = 36.5 -> 11.8 N) وتحضير 250 mL من 0.1 N HCl (V1 = 2.08 mL)، وتقييسه مقابل 10 mL من 0.1 N Na2CO3 بدليل الميثيل البرتقالي (Methyl Orange)، ومراحل منحنى التسحيح ودلائل الـ pH.',
+            sections: [
+              {
+                id: 'lab3-prep-calc',
+                titleAr: 'حسابات تحضير 250 mL من 0.1 N HCl (sp.gr = 1.18، 36.5%)',
+                titleEn: 'Preparation Calculations: 250 mL of 0.1 N HCl (sp.gr = 1.18, w/w% = 36.5%)',
+                arExplanation:
+                  'في هذه التجربة يُعطى حامض HCl المركز بكثافة نوعية 1.18 g/mL ونسبة وزنية 36.5% ووزن مكافئ 36.5 g/mol، مما يجعل عياريته المركزة تساوي 11.8 N بدقة.',
+                points: [
+                  {
+                    en: 'Concentrated HCl Normality: N_conc = (1.18 × 36.5 × 10) / 36.5 = 11.8 N.',
+                    ar: 'عيارية HCl المركز: N_conc = (1.18 × 36.5 × 10) / 36.5 = 11.8 N.'
+                  },
+                  {
+                    en: 'Volume Needed for 250 mL of 0.1 N HCl: N1 × V1 = N2 × V2 -> 11.8 × V1 = 0.1 × 250 -> V1 = 25 / 11.8 ≈ 2.12 mL (reported as ~2.08–2.12 mL in lab sheet; diluted to 250 mL in a volumetric flask).',
+                    ar: 'الحجم المطلوب لتحضير 250 mL بتركيز 0.1 N: V1 = (0.1 × 250) / 11.8 ≈ 2.12 mL (مذكور في الملزمة بنحو 2.08 mL)، يُضاف تدريجياً إلى ماء مقطر في دورق حجمي 250 mL ثم يُكمل للعلامة.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Conc. HCl (sp.gr = 1.18, 36.5%)',
+                    expr: 'N_conc = (1.18 × 36.5 × 10) / 36.5 = 11.8 N',
+                    note: 'ولتحضير 250 mL بتركيز 0.1 N: V1 = (0.1 × 250) / 11.8 ≈ 2.12 mL (ملزمة العملي: 2.08 mL).'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما عيارية حامض HCl المركز عندما تكون sp.gr = 1.18 و w/w% = 36.5% و Eq.wt = 36.5؟',
+                    a: 'تساوي 11.8 N (من القانون N = (1.18 × 36.5 × 10) / 36.5 = 11.8).'
+                  }
+                ]
+              },
+              {
+                id: 'lab3-standardization-stages',
+                titleAr: 'التقييس مقابل Na2CO3 ومراحل التفاعل ومنحنى التسحيح',
+                titleEn: 'Standardization vs. 0.1 N Na2CO3, Two-Stage Reaction & Titration Curve',
+                arExplanation:
+                  'يُقيّس محلول HCl المحضّر بواسطة 10 mL من محلول قياسي أولي 0.1 N Na2CO3 (المحضّر بإذابة 5.3 g في 1000 mL) باستخدام دليل الميثيل البرتقالي (Methyl Orange) حيث يتغير اللون من الأصفر إلى البرتقالي الخفيف (Faint orange) عند نقطة النهاية.',
+                points: [
+                  {
+                    en: 'Stage 1 (pH ~ 8.3): Na2CO3 + HCl -> NaCl + NaHCO3 (bicarbonate formation).',
+                    ar: 'المرحلة الأولى (عند pH ≈ 8.3): يتحول كربونات الصوديوم إلى بيكربونات الصوديوم: Na2CO3 + HCl → NaCl + NaHCO3.'
+                  },
+                  {
+                    en: 'Stage 2 (pH ~ 3.8): NaHCO3 + HCl -> NaCl + H2O + CO2 (CO2 evolution; Methyl Orange end point).',
+                    ar: 'المرحلة الثانية (عند pH ≈ 3.8): تتحول البيكربونات مع تحرر CO2 والماء: NaHCO3 + HCl → NaCl + H2O + CO2، وهنا نقطة نهاية الميثيل البرتقالي.'
+                  },
+                  {
+                    en: 'Overall Reaction & Titration Curve Stages A & B: Overall 2HCl + Na2CO3 -> 2NaCl + CO2 + H2O. On the titration curve, Stage A corresponds to carbonate -> bicarbonate neutralization, and Stage B corresponds to bicarbonate -> carbonic acid/CO2 with a sharp pH drop across the Methyl Orange range (3.0–4.4).',
+                    ar: 'المعادلة الإجمالية ومرحلتي منحنى التسحيح (A و B): المعادلة الكلية هي 2HCl + Na2CO3 → 2NaCl + CO2 + H2O. يظهر في منحنى التسحيح مرحلتا تعادل (A و B) مع هبوط حاد في pH ضمن مدى دليل الميثيل البرتقالي (3.0–4.4).'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Standardization Equivalence',
+                    expr: 'N(HCl) × V(HCl) = N(Na2CO3) × V(Na2CO3)',
+                    note: 'يُستخدم حجم 10 mL من 0.1 N Na2CO3 (5.3 g/1000 mL) مع قطرات من Methyl Orange حتى ظهور اللون البرتقالي الخفيف.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما تغير اللون الذي يلاحظ عند نقطة النهاية في تقييس HCl مقابل Na2CO3 باستخدام دليل Methyl Orange؟',
+                    a: 'يتغير اللون من الأصفر (Yellow) في الوسط القاعدي/البيكربوناتي إلى البرتقالي الخفيف (Faint orange) عند نقطة النهاية.'
+                  }
+                ]
+              },
+              {
+                id: 'lab3-indicators-table',
+                titleAr: 'تعريف الأدلة ومعايير اختيارها وجدول مدى pH وألوان الأدلة',
+                titleEn: 'Indicator Definition, Selection Criteria & Full pH Range / Color Table',
+                arExplanation:
+                  'الدليل الحمضي-القاعدي (Indicator) هو حامض أو قاعدة عضوية ضعيفة يتغير لونها تبعاً لـ pH المحلول حول قيمة pK_In الخاصة بها، ويجب أن يتطابق مدى تغير لونه مع القفزة الحادة في pH قرب نقطة التكافؤ.',
+                table: {
+                  headers: ['الدليل (Indicator)', 'مدى pH الفعال', 'اللون في الوسط الحامضي / الأقل pH', 'اللون في الوسط القاعدي / الأعلى pH'],
+                  rows: [
+                    ['Methyl Orange (الميثيل البرتقالي)', '3.0 – 4.4', 'Faint orange / Red-orange (برتقالي خفيف/أحمر برتقالي)', 'Yellow (أصفر)'],
+                    ['Methyl Red (الميثيل الأحمر)', '4.4 – 6.3', 'Red (أحمر)', 'Yellow (أصفر)'],
+                    ['Bromothymol blue (أزرق البروموثيمول)', '6.0 – 7.6', 'Yellow (أصفر)', 'Blue (أزرق)'],
+                    ['Phenolphthalein (الفينولفثالين)', '8.2 – 10.0', 'Colorless (عديم اللون)', 'Red / Pink (أحمر/وردي)'],
+                    ['Litmus paper (ورق عباد الشمس)', '6.0 – 8.0', 'Red (أحمر)', 'Blue (أزرق)']
+                  ]
+                },
+                flashcards: [
+                  {
+                    q: 'ما مدى pH وألوان دليل الفينولفثالين (Phenolphthalein) والميثيل البرتقالي (Methyl Orange)؟',
+                    a: 'الفينولفثالين: مداه 8.2–10.0 (عديم اللون في الحامضي، أحمر/وردي في القاعدي). الميثيل البرتقالي: مداه 3.0–4.4 (برتقالي خفيف في الحامضي، أصفر في القاعدي).'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lab-4',
+            code: 'Lab 4',
+            titleAr: 'المختبر 4 (التجربة 3): تقييس هيدروكسيد الصوديوم (NaOH)',
+            titleEn: 'Experiment 3: Standardization of Sodium Hydroxide (NaOH)',
+            sourceFile: '2_5325682799053670901.pdf',
+            summaryAr:
+              'توضيح أسباب عدم اعتبار الأحماض والقواعد الشائعة مواد قياسية أولية، وخطوات تحضير محلول NaOH وتقييسه مقابل حامض HCl القياسي باستخدام دليل الفينولفثالين.',
+            sections: [
+              {
+                id: 'lab4-why-not-primary',
+                titleAr: 'لماذا لا تُعد الأحماض والقواعد الشائعة مواد قياسية أولية؟',
+                titleEn: 'Why Common Acids and Bases Are Not Primary Standards',
+                arExplanation:
+                  'تفتقر الأحماض والقواعد المختبرية الشائعة إلى شروط المادة القياسية الأولية (مثل النقاوة العالية والثبات وعدم التميؤ أو التطاير)، لذا لا يمكن اعتماد وزنها أو حجمها المباشر لتحديد التركيز بدقة مطلقة دون تقييس.',
+                points: [
+                  {
+                    en: 'HCl: Evaporates / loses HCl gas at high concentrations, changing its concentration.',
+                    ar: 'حامض HCl: يتبخر / يفقد غاز HCl عند التراكيز العالية مما يغير تركيزه.'
+                  },
+                  {
+                    en: 'H2SO4: Strongly hygroscopic (absorbs moisture from air), altering its effective concentration.',
+                    ar: 'حامض H2SO4: شديد التميؤ (يمتص الرطوبة من الجو) مما يغير تركيزه.'
+                  },
+                  {
+                    en: 'HNO3: Evaporates and partially dissociates/decomposes on standing.',
+                    ar: 'حامض HNO3: يتبخر ويتفكك جزئياً مع الوقت مما يسبب عدم ثبات تركيزه.'
+                  },
+                  {
+                    en: 'NaOH, KOH, Ca(OH)2: Very hygroscopic and react with atmospheric CO2 to form carbonates (e.g. Na2CO3).',
+                    ar: 'القواعد القوية (NaOH, KOH, Ca(OH)2): شديدة التميؤ وتتفاعل مع CO2 الجوي لتكوين الكربونات.'
+                  },
+                  {
+                    en: 'NH4OH: Evaporates easily (volatile ammonia loss), changing concentration rapidly.',
+                    ar: 'هيدروكسيد الأمونيوم (NH4OH): متطاير ويفقد غاز الأمونيا بسهولة فتتغير عياريته.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'لماذا لا يُعد NaOH مادة قياسية أولية (Primary standard)؟',
+                    a: 'لأنه شديد التميؤ (يمتص الرطوبة من الهواء) ويتفاعل مع ثاني أكسيد الكربون (CO2) الجوي مكوناً كربونات الصوديوم.'
+                  }
+                ]
+              },
+              {
+                id: 'lab4-procedure-calc',
+                titleAr: 'طريقة العمل وحساب عيارية NaOH مقابل HCl القياسي',
+                titleEn: 'Procedure & Standardization Calculation Against Standard HCl',
+                arExplanation:
+                  'يُحضّر محلول NaOH تقريباً بإذابة نحو 4 g من NaOH في 1 L ماء مقطر، ثم يُعايَر ضد 10 mL من HCl القياسي بوجود 1–2 قطرة من دليل الفينولفثالين حتى ظهور لون وردي خفيف ثابت (Faint pink).',
+                points: [
+                  {
+                    en: 'Neutralization Reaction: HCl + NaOH -> NaCl + H2O, with a steep pH jump near the equivalence point.',
+                    ar: 'تفاعل التعادل: HCl + NaOH → NaCl + H2O، ويتميز بقفزة حادة في قيمة pH قرب نقطة التكافؤ.'
+                  },
+                  {
+                    en: 'Procedure Summary: Dissolve ~4 g NaOH in 1 L distilled water; pipette 10 mL of standardized HCl into a conical flask, add 1–2 drops of phenolphthalein, and titrate with NaOH solution until a faint pink color persists.',
+                    ar: 'ملخص خطوات التجربة: يُذاب نحو 4 g من NaOH في 1 L ماء مقطر؛ يُؤخذ 10 mL من HCl القياسي في دورق مخروطي وتُضاف 1–2 قطرة من الفينولفثالين، ثم يُسحّح بمحلول NaOH حتى ظهور لون وردي خفيف.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'NaOH Standardization Formula',
+                    expr: 'N(NaOH) × V(NaOH) = N(HCl) × V(HCl)',
+                    note: 'من حجم NaOH المستهلك في السحاحة يمكن حساب العيارية الحقيقية لمحلول NaOH بدقة.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما الدليل المستخدم في تقييس NaOH مقابل HCl، وما اللون عند نقطة النهاية؟',
+                    a: 'يُستخدم دليل الفينولفثالين (Phenolphthalein) وتتوقف المعايرة عند ظهور لون وردي خفيف (Faint pink).'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lab-5',
+            code: 'Lab 5',
+            titleAr: 'المختبر 5 (التجربة 4): تعيين نسبة حامض الخليك في عينة خل',
+            titleEn: 'Experiment 4: Determination of Percentage of Acetic Acid in a Vinegar Sample',
+            sourceFile: 'تحليلية عملي 6.pdf',
+            summaryAr:
+              'تعيين نسبة حامض الخليك (%W/V) في الخل بالتسحيح مع محلول قياسي من NaOH (~0.1 N) باستخدام الفينولفثالين، مع توضيح نقطة التكافؤ (pH 8–9) ومقارنة منحنيات التسحيح.',
+            sections: [
+              {
+                id: 'lab5-theory-vinegar',
+                titleAr: 'أساس التجربة وخصائص الخل واختيار الفينولفثالين',
+                titleEn: 'Titration Principle, Vinegar Composition & Phenolphthalein End Point',
+                arExplanation:
+                  'يُعد حامض الخليك (CH3COOH) حامضاً ضعيفاً، وعند تسحيحه بقاعدة قوية مثل NaOH تكون نقطة التكافؤ في وسط قاعدي خفيف (حوالي pH 8–9) بسبب حلمأة أيون الأسيتات الناتج، ولذلك يُعد الفينولفثالين (يتغير حول pH 8.2) دليلاً مناسباً جداً.',
+                points: [
+                  {
+                    en: 'Weak Acid – Strong Base Reaction: CH3COOH + NaOH -> CH3COONa + H2O; equivalence point lies around pH 8–9, matching phenolphthalein color change around pH 8.2.',
+                    ar: 'تفاعل حامض ضعيف مع قاعدة قوية: CH3COOH + NaOH → CH3COONa + H2O؛ وتقع نقطة التكافؤ قرب pH 8–9 بما يتوافق مع تغير لون الفينولفثالين قرب pH 8.2.'
+                  },
+                  {
+                    en: 'Vinegar Color & Organic Acids Note: Commercial vinegar may vary in color (clear/white or colored/amber) and naturally contains acetic acid as main acid alongside trace amounts of other organic acids.',
+                    ar: 'ملاحظة حول لون الخل والأحماض العضوية: قد يختلف لون الخل (أبيض شفاف أو ملوّن حسب النوع)، ويحتوي على حامض الخليك كمكون حامضي رئيسي مع كميات ضئيلة من أحماض عضوية أخرى.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'لماذا يُختار دليل الفينولفثالين في معايرة حامض الخليك مع NaOH؟',
+                    a: 'لأن نقطة التكافؤ لتفاعل حامض ضعيف (CH3COOH) مع قاعدة قوية (NaOH) تقع في المدى القاعدي الخفيف (pH 8–9)، بينما يتغير الفينولفثالين حول pH 8.2.'
+                  }
+                ]
+              },
+              {
+                id: 'lab5-procedure-calcs-hw',
+                titleAr: 'خطوات العمل والقوانين الحسابية والواجب البيتي المقارن',
+                titleEn: 'Experimental Procedure, %W/V Calculations & Titration Curve Homework',
+                arExplanation:
+                  'يُخفف 10 mL من عينة الخل في دورق حجمي سعة 100 mL بالماء المقطر، ثم يُؤخذ 10 mL من المحلول المخفف ويُعايَر بمحلول NaOH المقيّس (~0.1 N) بوجود قطرتين من الفينولفثالين حتى اللون الوردي الخفيف.',
+                points: [
+                  {
+                    en: 'Procedure: Dilute 10 mL vinegar to 100 mL in a volumetric flask; pipette 10 mL of diluted sample into a conical flask, add 2 drops of phenolphthalein, and titrate with standardized ~0.1 N NaOH to faint pink.',
+                    ar: 'خطوات العمل: يُخفف 10 mL من الخل إلى 100 mL في دورق حجمي؛ يُسحب 10 mL في دورق مخروطي وتُضاف قطرتان من الفينولفثالين، ثم يُسحّح بمحلول NaOH المقيّس (~0.1 N) حتى ظهور لون وردي خفيف.'
+                  },
+                  {
+                    en: 'Homework Comparison: Compare strong acid–strong base titration curve vs. weak acid–strong base titration curve (initial pH is higher for weak acid, buffer region appears before equivalence point, and equivalence point pH > 7 instead of pH = 7).',
+                    ar: 'مقارنة الواجب البيتي (منحنى تسحيح حامض قوي مع قاعدة قوية مقابل حامض ضعيف مع قاعدة قوية): يبدأ الحامض الضعيف عند pH أعلى، وتظهر منطقة منظمة (Buffer) قبل نقطة التكافؤ، وتكون نقطة التكافؤ عند pH > 7 بدلاً من pH = 7.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Normality of Diluted Acetic Acid',
+                    expr: 'N(HOAc) × V(HOAc) = N(NaOH) × V(NaOH)',
+                    note: 'تُحسب عيارية حامض الخليك في الجزء المأخوذ للمعايرة ثم تُراعى نسبة التخفيف عند حساب كتلة العينة الأصلية.'
+                  },
+                  {
+                    label: 'Weight of Acetic Acid (g)',
+                    expr: 'Wt(HOAc) = [ N(NaOH) × V(NaOH, mL) × Eq.wt(HOAc) ] / 1000',
+                    note: 'الوزن المكافئ لحامض الخليك CH3COOH يساوي 60 g/eq (مع مراعاة عامل التخفيف 100/10 عند حساب الكتلة في 10 mL من الخل).'
+                  },
+                  {
+                    label: 'Percentage Weight/Volume (%W/V)',
+                    expr: '%W/V(HOAc) = [ Wt(HOAc) / V_Sample(mL) ] × 100',
+                    note: 'تعبر عن غرامات حامض الخليك في كل 100 mL من عينة الخل.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما الفرق الرئيسي بين نقطة التكافؤ في معايرة (حامض قوي + قاعدة قوية) و(حامض ضعيف + قاعدة قوية)؟',
+                    a: 'في (حامض قوي + قاعدة قوية) تكون نقطة التكافؤ عند pH = 7، بينما في (حامض ضعيف + قاعدة قوية مثل CH3COOH + NaOH) تكون نقطة التكافؤ قاعدية (pH > 7، غالباً 8–9).'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      theoretical: {
+        id: 'theoretical',
+        badgeIcon: '📘',
+        badgeText: 'المسار النظري — Theoretical Analytical Chemistry',
+        title: 'الكيمياء التحليلية النظرية (أ.د. حسين ناصر السلمان)',
+        description:
+          'تغطي طبيعة الكيمياء التحليلية والمحاليل، وحدات التركيز المختلفة، ثوابت الاتزان وحسابات الـ pH والمخاليط، المحاليل المنظمة والأدلة، والتحليل الوزني ومعايرات الترسيب و Ksp.',
+        sidebarTitle: 'محاضرات النظري',
+        sidebarSubtitle: '5 محاضرات نظرية أساسية',
+        lectures: [
+          {
+            id: 'lec-1',
+            code: 'Lec 1',
+            titleAr: 'المحاضرة 1: طبيعة الكيمياء التحليلية والمحاليل والإلكتروليتات',
+            titleEn: 'Lecture 1: Nature of Analytical Chemistry, Solutions & Electrolytes',
+            sourceFile: '1-1.pdf',
+            summaryAr:
+              'مفهوم الكيمياء التحليلية كعلم قياس، الفرق بين التحليل النوعي والكمي، حساسيات التحليل وتطبيقاته، الطرق الكلاسيكية والآلية، مفهوم المول، وأنواع المحاليل والإلكتروليتات وقاعدة "الشبيه يذيب شبيهه".',
+            sections: [
+              {
+                id: 'lec1-nature-types',
+                titleAr: 'طبيعة الكيمياء التحليلية، التحليل النوعي والكمي، والمصطلحات',
+                titleEn: 'Nature of Analytical Chemistry, Qualitative vs. Quantitative & Key Terms',
+                arExplanation:
+                  'الكيمياء التحليلية هي علم قياس يوفّر أفكاراً وطرقاً فعالة في مختلف العلوم والطب؛ وتنقسم أساساً إلى تحليل نوعي يحدد "ما هي" المادة، وتحليل كمي يحدد "كم مقدار" وجودها.',
+                points: [
+                  {
+                    en: 'Qualitative Analysis ("What"): Identifies the elements, ions, or compounds present in a sample ("Identifying what is in unknown").',
+                    ar: 'التحليل النوعي ("ماذا يوجد"): يحدد العناصر أو المركبات الموجودة في العينة ("تحديد ما يوجد في المجهول").'
+                  },
+                  {
+                    en: 'Quantitative Analysis ("How much"): Determines the amount or concentration of each substance in a sample ("Identifying how much is present").',
+                    ar: 'التحليل الكمي ("كم يوجد"): يحدد كمية أو تركيز كل مادة في العينة ("تحديد مقدار ما هو موجود").'
+                  },
+                  {
+                    en: 'Analyte & Species: Analyte is the substance/constituent being measured in a sample; Species refers to any chemical form of interest in the analysis.',
+                    ar: 'المادة المحللة (Analyte) والنوع الكيميائي (Species): المادة المحللة هي المكون المراد قياسه في العينة، والنوع الكيميائي هو أي صورة كيميائية ذات اهتمام في التحليل.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما الفرق الجوهري بين التحليل النوعي (Qualitative) والتحليل الكمي (Quantitative)؟',
+                    a: 'التحليل النوعي يجيب عن سؤال "ماذا يوجد (What)" في العينة من عناصر أو مركبات، بينما التحليل الكمي يجيب عن سؤال "كم مقدار الموجود (How much)".'
+                  }
+                ]
+              },
+              {
+                id: 'lec1-sensitivity-methods-role',
+                titleAr: 'حساسية التحليل، التطبيقات، والطرق التحليلية والمول',
+                titleEn: 'Sensitivity of Analysis, Applications, Methods & Mass/Mole',
+                arExplanation:
+                  'تُصنّف التحاليل بحسب حساسية وحجم العينة إلى Trace و Ultratrace و Macro و Micro، وتُستخدم في المختبرات السريرية والعدلية والبيئية والصناعية والبحثية.',
+                points: [
+                  {
+                    en: 'Sensitivity Ranges: Trace analysis = 1–1000 ppm (or 0.0001–0.1 wt.%); Ultratrace analysis = < 1 ppm (or < 0.0001 wt.%); Macro sample > 1 mg; Micro sample < 1 mg.',
+                    ar: 'حساسية التحليل: التحليل النزر (Trace) = 1–1000 ppm (أو 0.0001–0.1 wt.%)، فوق النزر (Ultratrace) = < 1 ppm (أو < 0.0001 wt.%)، ماكرو (Macro) > 1 mg، مايكرو (Micro) < 1 mg.'
+                  },
+                  {
+                    en: 'Where Analytical Chemistry is Used: (1) Clinical laboratories, (2) Forensic laboratories, (3) Environmental laboratories, (4) Manufacturing/industry, (5) Research, (6) Others.',
+                    ar: 'مجالات استخدام الكيمياء التحليلية: (1) المختبرات السريرية، (2) المختبرات الجنائية/العدلية، (3) المختبرات البيئية، (4) التصنيع والصناعة، (5) البحث العلمي، (6) مجالات أخرى.'
+                  },
+                  {
+                    en: 'Quantitative Methods: Gravimetric (mass), Volumetric (volume of titrant), Spectroscopic (electromagnetic radiation), Mass spectrometry (mass-to-charge ratio m/z), Electroanalytical (voltage, current, resistance, charge), and others (heat, optical activity, refractive index, reaction rate).',
+                    ar: 'الطرق التحليلية الكمية: الوزنية (الكتلة)، الحجمية (حجم الكاشف)، الطيفية (تفاعل الإشعاع الكهرومغناطيسي)، مطيافية الكتلة (نسبة الكتلة إلى الشحنة m/z)، الكهروتحليلية (الجهد، التيار، المقاومة، الشحنة)، وغيرها.'
+                  },
+                  {
+                    en: 'Mole & Avogadro Number: 1 mole = 6.022 × 10^23 particles (atoms, molecules, ions); atomic/molecular mass equals grams containing Avogadro’s number.',
+                    ar: 'المول وعدد أفوجادرو: 1 مول = 6.022 × 10^23 جسيمة (ذرات، جزيئات، أيونات)، والكتلة الذرية/الجزيئية هي عدد الغرامات المحتوية على عدد أفوجادرو.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Avogadro’s Number',
+                    expr: '1 mol = 6.022 × 10^23 particles',
+                    note: 'ينطبق على الذرات أو الجزيئات أو الأيونات أو أي أنواع كيميائية أخرى.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما نطاق تركيز التحليل النزر (Trace) وفوق النزر (Ultratrace)؟',
+                    a: 'Trace = 1–1000 ppm (أو 0.0001–0.1 wt.%)، بينما Ultratrace = < 1 ppm (أو < 0.0001 wt.%).'
+                  }
+                ]
+              },
+              {
+                id: 'lec1-solutions-electrolytes',
+                titleAr: 'المحاليل، الإلكتروليتات، قاعدة "الشبيه يذيب شبيهه"، وتصنيف حجم الجسيمات',
+                titleEn: 'Solutions, Electrolytes, "Like Dissolves Like" & Particle Size Classification',
+                arExplanation:
+                  'المحلول مزيج متجانس من مذاب (Solute) ومذيب (Solvent)، وتختلف المحاليل بحسب موصلية الإلكتروليت وقطبية المذيب وحجم جسيمات المذاب.',
+                points: [
+                  {
+                    en: 'Electrolytes vs Non/Insoluble: Electrolytes dissociate into ions in solution and conduct electricity (Strong electrolyte vs. Weak electrolyte vs. Insoluble/non-electrolyte).',
+                    ar: 'الإلكتروليتات: مادة تتفكك إلى أيونات في المحلول وتوصل التيار الكهربائي؛ وتُقسم إلى إلكتروليت قوي، إلكتروليت ضعيف، أو غير موصل/غير ذائب.'
+                  },
+                  {
+                    en: 'Non-Aqueous & "Like Dissolves Like": Organic solvents (non-polar, e.g. hexane) dissolve non-polar/lipophilic/hydrophobic solutes (e.g. hydrocarbon), whereas polar water dissolves polar/hydrophilic/ionic species; semi-polar solvents bridge between them.',
+                    ar: 'المذيبات والمبدأ "الشبيه يذيب شبيهه": المذيبات العضوية غير القطبية (مثل الهكسان) تذيب المواد المحبة للدهون/الكارهة للماء (مثل الهيدروكربونات)، والماء القطبي يذيب المواد القطبية/الأيونية، وتوجد مذيبات شبه قطبية.'
+                  },
+                  {
+                    en: 'Classification by Solute Particle Size: (1) True solution (< 1 nm, homogeneous, not filterable, invisible to naked eye, e.g. NaCl in water); (2) Suspension (heterogeneous, settles/precipitates on standing, filterable, visible to naked eye, e.g. Amoxicillin); (3) Colloidal solution (homogeneous-appearing, does not precipitate or filter easily, visible under electron microscope, e.g. milk).',
+                    ar: 'تصنيف المحاليل حسب حجم جسيمات المذاب: (1) محلول حقيقي (True solution < 1 nm متجانس، لا يُرشّح، لا يُرى بالعين، مثل NaCl في الماء)؛ (2) معلق (Suspension غير متجانس، يترسب ويُرشّح ويُرى بالعين، مثل Amoxicillin)؛ (3) غروي (Colloidal يُرى بالمجهر الإلكتروني ولا يترسب، مثل الحليب).'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'قارن بين المحلول الحقيقي (True solution) والمعلق (Suspension) والغروي (Colloidal) من حيث حجم الجسيمات ومثال كل منها.',
+                    a: 'الحقيقي: < 1 nm (مثال: NaCl في الماء). المعلق: جسيمات كبيرة مرئية وقابلة للترشيح والترسيب (مثال: Amoxicillin). الغروي: تُرى بالمجهر الإلكتروني ولا تترسب (مثال: الحليب).'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lec-2',
+            code: 'Lec 2',
+            titleAr: 'المحاضرة 2: وحدات التركيز والحسابات التحليلية',
+            titleEn: 'Lecture 2: Units of Concentration & Analytical Calculations',
+            sourceFile: '2_5262744485737039505.pdf',
+            summaryAr:
+              'الكتلة الجزيئية والصيغية الغرامية (M.wt و GFW/F.wt)، المول والملي مول وبادئات الكتل، المولارية (للصلب والسائل بالكثافة النوعية) والتخفيف، الفورمالية، النورمالية والوزن المكافئ، الكسر المولي، النسب المئوية، ووحدات ppt و ppm و ppb مع الأسئلة Q1–Q5.',
+            sections: [
+              {
+                id: 'lec2-mw-gfw-units',
+                titleAr: 'الكتلة الجزيئية والصيغية الغرامية، المول، وبادئات الكتل',
+                titleEn: 'Gram Molecular/Formula Weight, Mole/mmole & Weight Prefixes',
+                arExplanation:
+                  'تُحسب الكتلة الصيغية الغرامية (GFW) بجمع الكتل الذرية للصيغة الأيونية وهو أدق للمركبات الأيونية، بينما تُستخدم الكتلة الجزيئية (M.wt) للمركبات الجزيئية؛ وفي مثال CaSO4.7H2O: 40.08 + 32.06 + (16×4) + 7[(2×1.01)+16] = 262.25 g/mol.',
+                points: [
+                  {
+                    en: 'gMW vs GFW: gMW (M.wt) is sum of atomic weights of a molecular compound; GFW (F.wt) is sum of atomic weights of an ionic formula (more accurate for ionic salts/electrolytes).',
+                    ar: 'الكتلة الجزيئية (M.wt) مقابل الكتلة الصيغية الغرامية (GFW): الأولى للمركبات الجزيئية والثانية مجموع الكتل الذرية للصيغة الأيونية وهي أدق للأملاح والإلكتروليتات.'
+                  },
+                  {
+                    en: 'Weight Prefixes from 1 g: 1 g = 10^3 mg = 10^6 µg = 10^9 ng = 10^12 pg = 10^15 fg = 10^18 ag = 10^21 zg = 10^24 yg (and 1 kg = 1000 g).',
+                    ar: 'بادئات الكتل نسبة إلى الغرام: 1 g = 10^3 mg = 10^6 µg = 10^9 ng = 10^12 pg = 10^15 fg = 10^18 ag = 10^21 zg = 10^24 yg.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Moles & Millimoles',
+                    expr: 'Mole = wt(g) / F.wt(g/mol)   |   mMole = wt(mg) / F.wt(mg/mmol)',
+                    note: 'مثال: CaSO4.7H2O يساوي 262.25 g/mol.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما الكتلة المولية لمركب CaSO4.7H2O وفق قيم المحاضرة (Ca=40.08, S=32.06, O=16.00, H=1.01)؟',
+                    a: 'تساوي 262.25 g/mol (40.08 + 32.06 + 64.00 + 7×18.02 = 262.25).'
+                  }
+                ]
+              },
+              {
+                id: 'lec2-molarity-normality-formality',
+                titleAr: 'المولارية (للصلب والسائل والتخفيف)، الفورمالية، والنورمالية والوزن المكافئ',
+                titleEn: 'Molarity (Solids, Liquids, Dilution), Formality & Normality / Eq.wt',
+                arExplanation:
+                  'المولارية (M) هي عدد مولات المذاب في لتر من المحلول (أو ملي مول في مل)، وتُحسب للمحاليل السائلة المركزة عبر الكثافة النوعية أو الكثافة؛ بينما النورمالية (N) هي عدد المكافئات الغرامية في لتر من المحلول.',
+                points: [
+                  {
+                    en: 'Solid Molarity & Liquid Sp.Gr Molarity: For solid wt(g) in V(mL), M = (wt(g)/M.wt) × (1000/V(mL)). For liquid with % and sp.gr, M = (% × sp.gr × 1000) / M.wt; e.g. 28.0% NH3 (M.wt = 17, sp.gr = 0.898) -> M = (0.28 × 0.898 × 1000) / 17 = 16.470 M.',
+                    ar: 'مولارية الصلب والسائل: للصلب M = (wt(g)/M.wt) × (1000/V(mL)). للسائل M = (% × sp.gr × 1000) / M.wt؛ مثال NH3 بنسبة 28.0% وكثافة نوعية 0.898 وكتلة مولية 17 يعطي 16.470 M.'
+                  },
+                  {
+                    en: 'Dilution & Formality: M_stock × V_stock = M_diluted × V_diluted (e.g. preparing 1.00×10^-3 M KMnO4 in 100 mL from 0.100 M stock requires V1 = 1.0 mL). Formality (F) uses formula weight F.wt and is numerically equal to molarity for ionic salts.',
+                    ar: 'التخفيف والفورمالية: M_stock × V_stock = M_diluted × V_diluted؛ والفورمالية (F) تعتمد F.wt وتساوي عددياً المولارية للأملاح الأيونية.'
+                  },
+                  {
+                    en: 'Normality & Equivalent Weight: Eq.wt = F.wt / n (where n is number of H+ or OH- in acid-base, or electrons transferred in redox). N = n × M. Examples: NH3 Eq.wt = 17.03/1 = 17.03 g/Eq; H2C2O4 (with NaOH) Eq.wt = 90.04/2 = 45.02 g/Eq; KMnO4 (Mn+7 -> Mn+2, 5e-) Eq.wt = 158.04/5 = 31.608 g/Eq.',
+                    ar: 'النورمالية والوزن المكافئ: Eq.wt = F.wt / n (عدد H+ أو OH- في التعادل، أو عدد الإلكترونات في الأكسدة والاختزال)، و N = n × M. أمثلة: NH3 (17.03/1 = 17.03)، H2C2O4 (90.04/2 = 45.02)، KMnO4 باختزال 5 إلكترونات (158.04/5 = 31.608).'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Molarity & Liquid Specific Gravity',
+                    expr: 'M(solid) = [ wt(g) / M.wt ] × [ 1000 / V(mL) ]   |   M(liquid) = ( % × sp.gr × 1000 ) / M.wt',
+                    note: 'تُستخدم N1 × V1 = N2 × V2 أو M1 × V1 = M2 × V2 عند التخفيف.'
+                  },
+                  {
+                    label: 'Normality & Equivalent Weight',
+                    expr: 'N = [ wt(g) / Eq.wt ] × [ 1000 / V(mL) ] = n × M   |   Eq.wt = F.wt / n',
+                    note: 'عدد المكافئات Eq = wt(g)/Eq.wt = N × V(L)، وعدد الملي مكافئات meq = wt(mg)/Eq.wt = N × V(mL).'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما الوزن المكافئ لبرمنغنات البوتاسيوم KMnO4 (M.wt = 158.04) عندما يختزل Mn(+7) إلى Mn(+2)؟',
+                    a: 'تساوي 31.608 g/Eq لأن عدد الإلكترونات المكتسبة n = 5 (158.04 / 5 = 31.608).'
+                  }
+                ]
+              },
+              {
+                id: 'lec2-molefrac-percent-ppm-q',
+                titleAr: 'الكسر المولي، النسب المئوية، ppm/ppb/ppt، والأسئلة التدريبية Q1–Q5',
+                titleEn: 'Mole Fraction, Percent Concentrations, ppt/ppm/ppb & Practice Q1–Q5',
+                arExplanation:
+                  'تتنوع وحدات التعبير عن التركيز بحسب التطبيق، مثل الكسر المولي (X) والنسب المئوية (% wt/wt, % wt/V, % V/V) والتراكيز المتناهية الصغر (ppt, ppm, ppb).',
+                points: [
+                  {
+                    en: 'Mole Fraction (X): X_solute = n / (n + N), X_solvent = N / (n + N), and X_solute + X_solvent = 1 (dimensionless). In 95% ethanol by mass (95 g ethanol M.wt=46 -> 2.07 mol; 5 g water M.wt=18 -> 0.28 mol): X_water = 0.28/(0.28+2.07) ≈ 0.12 or 0.88 depending on ratio—note formula X_i = n_i / n_total; in lecture page 9: 0.28/(0.28+2.07) is shown as 0.88 in slide text while X_ethanol = 1 - 0.88 = 0.12 (exact 2.07/2.35 = 0.88 for ethanol and 0.28/2.35 = 0.12 for water).',
+                    ar: 'الكسر المولي (X): مجموع الكسور المولية لجميع مكونات المحلول يساوي 1؛ وفي مثال الإيثانول 95% والماء 5% (95 g إيثانول ≈ 2.07 mol و 5 g ماء ≈ 0.28 mol، المجموع 2.35 mol): كسر الإيثانول 2.07/2.35 = 0.88 وكسر الماء 0.28/2.35 = 0.12.'
+                  },
+                  {
+                    en: 'Percent Concentrations: %(wt/wt) = [wt_solute(g)/wt_solution(g)] × 100; %(wt/V) = [wt_solute(g)/V_solution(mL)] × 100; %(V/V) = [V_solute(mL)/V_solution(mL)] × 100.',
+                    ar: 'النسب المئوية: %(wt/wt) = [كتلة المذاب(g)/كتلة المحلول(g)] × 100؛ %(wt/V) = [كتلة المذاب(g)/حجم المحلول(mL)] × 100؛ %(V/V) = [حجم المذاب(mL)/حجم المحلول(mL)] × 100.'
+                  },
+                  {
+                    en: 'ppt, ppm, ppb: ppt = g/L = mg/mL = M×M.wt = N×Eq.wt; ppm = mg/L = µg/mL = M×M.wt×1000 = N×Eq.wt×1000; ppb = µg/L = ng/mL = M×M.wt×10^6 = N×Eq.wt×10^6.',
+                    ar: 'وحدات ppt و ppm و ppb: ppt = g/L = mg/mL = M×M.wt = N×Eq.wt؛ ppm = mg/L = µg/mL = M×M.wt×1000 = N×Eq.wt×1000؛ ppb = µg/L = ng/mL = M×M.wt×10^6 = N×Eq.wt×10^6.'
+                  },
+                  {
+                    en: 'Practice Questions Q1–Q5: Q1: 2.50×10^2 ppm Cl- = 250 mg/L / (1000 × 35.453) = 7.05×10^-3 M. Q2: 58.4 g NaCl in enough water to make 1.00 L of solution (b). Q3: 250 mL of 0.500 M NaI (M.wt = 150) -> 0.5 × 0.25 × 150 = 18.75 g (~18.7 g, c). Q4: 2000 g of 5.0% (m/m) glucose -> solute = 100 g, water = 1900 g (d). Q5: 2000 g of 4.0 ppm glucose -> 4.0 µg/g × 2000 g = 8000 µg = 0.0080 g (d).',
+                    ar: 'حلول الأسئلة Q1–Q5: Q1: 250 mg/L للكلوريد (35.453) = 7.05×10^-3 M. Q2: الخيار (b) إذابة 58.4 g في كمية كافية من الماء ليصبح حجم المحلول 1.00 L. Q3: الخيار (c) نحو 18.75 g (18.7 g). Q4: الخيار (d) كتلة الماء 1900 g لأن الجلوكوز 100 g. Q5: الخيار (d) كتلة الجلوكوز 0.0080 g.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'ppm & ppb Conversion Relations',
+                    expr: 'ppm = mg/L = µg/mL = M × M.wt × 1000   |   ppb = µg/L = ng/mL = M × M.wt × 10^6',
+                    note: 'يمكن أيضاً استبدال (M × M.wt) بـ (N × Eq.wt).'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما كتلة الجلوكوز في 2000 g من محلول تركيزه 4.0 ppm (السؤال Q5)؟',
+                    a: 'تساوي 0.0080 g (لأن 4.0 ppm = 4.0 µg/g، و 4.0 × 2000 = 8000 µg = 0.0080 g).'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lec-5',
+            code: 'Lec 5',
+            titleAr: 'المحاضرة 5: ثوابت الاتزان وحسابات الـ pH والمخاليط',
+            titleEn: 'Lecture 5: Equilibrium Constants, pH Calculations & Mixtures',
+            sourceFile: '2_5303503205685037473.pdf',
+            summaryAr:
+              'التأين الذاتي للماء وثابت Kw، العلاقة بين Ka و Kb و Kw، نظريات الأحماض والقواعد (أرهينيوس، برونستد-لوري، لويس)، معادلات pH و pOH، أمثلة محلولة، وحساب pH لمخاليط الأحماض والقواعد القوية (Q a–e).',
+            sections: [
+              {
+                id: 'lec5-water-theories',
+                titleAr: 'التأين الذاتي للماء، ثوابت الاتزان، ونظريات الأحماض والقواعد',
+                titleEn: 'Autoionization of Water, Ka/Kb/Kw & Acid-Base Theories',
+                arExplanation:
+                  'يتأين الماء ذاتياً بنسب ضئيلة جداً عند 25°C بحيث يساوي حاصل ضرب تركيز أيوني الهيدرونيوم والهيدروكسيد 1.0 × 10^-14، وتصف ثلاث نظريات رئيسية سلوك الأحماض والقواعد.',
+                points: [
+                  {
+                    en: 'Self-Ionization & Acidity: 2H2O(l) <=> H3O+(aq) + OH-(aq), Kw = [H3O+][OH-] = 1.0 × 10^-14 at 25°C. Acidic: [H+] > [OH-]; Basic: [OH-] > [H+]; Neutral: [H+] = [OH-] = 1.0 × 10^-7 M.',
+                    ar: 'التأين الذاتي والوسط: Kw = [H3O+][OH-] = 1.0 × 10^-14 عند 25°C. المحلول حامضي إذا كان [H+] > [OH-]، قاعدي إذا كان [OH-] > [H+]، ومتعادل إذا تساويا.'
+                  },
+                  {
+                    en: 'Ka, Kb, Kw Relation: For NH4+ <=> H+ + NH3 (Ka) and NH3 + H2O <=> OH- + NH4+ (Kb), multiplying gives Ka × Kb = [H+][OH-] = Kw.',
+                    ar: 'العلاقة بين Ka و Kb و Kw: بضرب ثابت تفكك الحامض المقترن Ka في ثابت تفكك القاعدة المقترنة Kb ينتج Kw = Ka × Kb.'
+                  },
+                  {
+                    en: 'Three Acid-Base Theories: (1) Arrhenius: acid gives H+/H3O+ in water, base gives OH- in water; (2) Bronsted-Lowry: acid donates proton (H+), base accepts proton (H+); (3) Lewis: acid accepts electron pair, base donates electron pair.',
+                    ar: 'نظريات الأحماض والقواعد: (1) أرهينيوس: الحامض يعطي H+/H3O+ والقاعدة تعطي OH- في الماء؛ (2) برونستد-لوري: الحامض مانح للبروتون H+ والقاعدة مستقبلة له؛ (3) لويس: الحامض مستقبل لزوج إلكتروني والقاعدة مانحة له.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Water Ionization & Conjugate Pair Constant',
+                    expr: 'Kw = [H3O+][OH-] = 1.0 × 10^-14 (at 25°C)   |   Kw = Ka × Kb',
+                    note: 'تتأثر ثوابت الاتزان بدرجة الحرارة والضغط.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما الفرق بين تعريف برونستد-لوري وتعريف لويس للحامض والقاعدة؟',
+                    a: 'برونستد-لوري يعتمد على انتقال البروتون H+ (الحامض مانح والقاعدة مستقبل)، بينما لويس يعتمد على زوج الإلكترونات (الحامض مستقبل والقاعدة مانح).'
+                  }
+                ]
+              },
+              {
+                id: 'lec5-ph-poh-examples',
+                titleAr: 'معادلات pH و pOH والأمثلة المحلولة',
+                titleEn: 'pH & pOH Equations and Worked Examples',
+                arExplanation:
+                  'يُعد مقياس pH وسيلة عملية للتعبير عن تركيز أيون الهيدرونيوم من 0 إلى 14، ويرتبط بـ pOH عبر ثابت تأين الماء عند 25°C.',
+                points: [
+                  {
+                    en: 'Key Examples from Lecture: (1) [H3O+] = 6.54×10^-5 M -> pH = 4.19; pH = 3.65 -> [H3O+] = 2.2×10^-4 M. (2) [OH-] = 4.3×10^-2 M -> pOH = 1.37; pOH = 8.35 -> [OH-] = 4.5×10^-9 M. (3) 1.0×10^-3 M HCl -> [OH-] = 1.0×10^-11 M. (4) Shampoo pH = 2.53 -> pOH = 11.47, [H+] = 0.0029 M, [OH-] = 3.42×10^-12 M (acidic). (5) Strong base pH = 12.24 -> pOH = 1.76, [OH-] = 0.0174 M -> [NaOH] = 0.0174 M, while [Ba(OH)2] = 0.0174 / 2 = 0.0087 M (note: slide 29 writes 0.0174×2 = 3.5×10^-2 M as a typo in lecture slide, since Ba(OH)2 -> Ba2+ + 2OH- so [Ba(OH)2] = [OH-]/2).',
+                    ar: 'أمثلة المحاضرة: (1) [H3O+] = 6.54×10^-5 M يعطي pH = 4.19؛ و pH = 3.65 يعطي [H3O+] = 2.2×10^-4 M. (2) شامبو ذو pH = 2.53 يعطي pOH = 11.47 و [H+] = 0.0029 M و [OH-] = 3.42×10^-12 M (حامضي). (3) قاعدة قوية pH = 12.24 تعطي pOH = 1.76 و [OH-] = 0.0174 M؛ ولـ NaOH تساوي 0.0174 M، ولـ Ba(OH)2 تُقسم على 2 لأن كل مول يعطي 2OH-.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'pH & pOH Core Equations (25°C)',
+                    expr: 'pH = -log[H+]   |   pOH = -log[OH-]   |   [H+] = 10^-pH   |   pH + pOH = pKw = 14.000',
+                    note: 'كلما انخفض pH زادت الحامضية (< 7 حامضي، = 7 متعادل، > 7 قاعدي).'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'إذا كان pH لمحلول يساوي 2.53 عند 25°C، فما قيمة pOH و [H+]؟',
+                    a: 'pOH = 14.00 - 2.53 = 11.47، و [H+] = 10^-2.53 ≈ 2.95×10^-3 M (حوالي 0.0029 M).'
+                  }
+                ]
+              },
+              {
+                id: 'lec5-mixtures-qa-e',
+                titleAr: 'حساب pH لمخاليط الأحماض والقواعد القوية والأسئلة Q(a–e)',
+                titleEn: 'pH of Strong Acid–Strong Base Mixtures & Questions Q(a–e)',
+                arExplanation:
+                  'عند خلط حامض قوي وقاعدة قوية يتفاعلان بنسبة 1:1، فنحسب عدد المولات/الملي مولات لكل منهما، ثم نطرح الأقل من الأكبر لمعرفة الفائض، ونقسم الفائض على الحجم الكلي للمزيج.',
+                points: [
+                  {
+                    en: 'Mixture Steps: (1) Calculate moles/mmoles of H+ and OH-; (2) Subtract smaller from larger to get unreacted excess; (3) Sum volumes to get total solution volume; (4) Divide excess moles/mmoles by total volume to get molarity of excess ion; (5) Compute pH (or pOH then 14 - pOH).',
+                    ar: 'خطوات حساب pH للمخاليط: (1) حساب مولات/ملي مولات H+ و OH-؛ (2) طرح الأقل من الأكبر لإيجاد الفائض؛ (3) جمع الحجوم للحصول على الحجم الكلي؛ (4) قسمة الفائض على الحجم الكلي؛ (5) حساب pH.'
+                  },
+                  {
+                    en: 'Worked Mixture & Q(a–e): (i) 25 cm³ of 0.1 M NaOH (2.5×10^-3 mol) + 20 cm³ of 0.1 M HCl (2.0×10^-3 mol) in 45 cm³ (0.045 L) -> excess OH- = 5.0×10^-4 mol / 0.045 L = 1.11×10^-2 M -> pOH = 1.95 -> pH = 12.05. (ii) Q(a) 50 mL 0.1 M HCl -> pH = 1.0; Q(b) +50 mL H2O (100 mL total, 0.05 M) -> pH = -log(0.05) = 1.30; Q(c) +50 mL 0.1 M NaOH (equal 5 mmol) -> pH = 7.0; Q(d) +40 mL 0.1 M NaOH -> excess H+ = (5-4)/90 = 1/90 M -> pH = -log(1/90) ≈ 1.95; Q(e) 40 mL 0.1 M HCl + 50 mL 0.1 M NaOH -> excess OH- = 1/90 M -> pOH ≈ 1.95 -> pH ≈ 12.05.',
+                    ar: 'أمثلة وأسئلة Q(a–e): في مزج 25 mL من 0.1 M NaOH مع 20 mL من 0.1 M HCl (الحجم الكلي 45 mL) يكون الفائض OH- بتركيز 1.11×10^-2 M فتكون pH = 12.05. وفي Q(a): pH = 1؛ Q(b): pH = 1.30؛ Q(c): pH = 7؛ Q(d): pH = -log(1/90) ≈ 1.95؛ Q(e): pH = 14 - (-log(1/90)) ≈ 12.05.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Excess Ion Concentration in Mixture',
+                    expr: '[Excess Ion] = |mmol(H+) - mmol(OH-)| / V_total(mL)',
+                    note: 'إذا زاد H+ نطبق pH = -log[H+]، وإذا زاد OH- نطبق pOH = -log[OH-] ثم pH = 14 - pOH.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما قيمة pH عند مزج 50 mL من 0.1 M HCl مع 50 mL من 0.1 M NaOH (فرع Q-c)؟',
+                    a: 'تساوي 7.0 لأن ملي مولات الحامض (5 mmol) تساوي ملي مولات القاعدة (5 mmol) فينتج محلول متعادل.'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lec-8',
+            code: 'Lec 8',
+            titleAr: 'المحاضرة 8: المحاليل المنظمة وأدلة الـ pH والسعة المنظمة',
+            titleEn: 'Lecture 8: Buffered Solutions, pH Indicators & Buffer Capacity',
+            sourceFile: '2_5334833703619172433.pdf',
+            summaryAr:
+              'أهمية المحاليل المنظمة في التجارب الحيوية وخصائص المنظم المثالي الست، معادلة هندرسون-هاسلبالخ والأيون المشترك، العوامل المؤثرة في pH المنظم، أدلة pH ومداها الفعال، والسعة المنظمة (β) وأمثلتها.',
+            sections: [
+              {
+                id: 'lec8-buffer-intro-props',
+                titleAr: 'تعريف المحلول المنظم، تركيبه، وخصائص المنظم المثالي الست',
+                titleEn: 'Buffer Definition, Composition & 6 Properties of Ideal Biological Buffer',
+                arExplanation:
+                  'المحلول المنظم (Buffer solution) هو محلول يقاوم التغير في قيمة pH عند إضافة كميات قليلة من حامض أو قاعدة، ويتكون عادة من حامض ضعيف وملحه المرافق (أو قاعدة ضعيفة وملحها المرافق).',
+                points: [
+                  {
+                    en: 'Composition & Examples: Weak acid + its salt (e.g. acetic acid + sodium acetate, carbonic acid + sodium bicarbonate), or weak base + its salt.',
+                    ar: 'التركيب وأمثلة: حامض ضعيف + ملحه (مثل حامض الخليك مع خلات الصوديوم، أو حامض الكربونيك مع بيكربونات الصوديوم)، أو قاعدة ضعيفة + ملحها.'
+                  },
+                  {
+                    en: '6 Properties of Ideal Buffer (Biological): (1) Does not penetrate cell membranes; (2) No toxic effect on vital cell processes; (3) Does not form insoluble compounds; (4) Reduces ion concentration effects; (5) pH unchanged upon dilution with distilled water; (6) Suitable pH range / neutralizes pH change.',
+                    ar: 'خصائص المنظم المثالي الست: (1) لا يخترق الأغشية الخلوية؛ (2) ليس له تأثير سام على العمليات الحيوية داخل الخلية؛ (3) لا يكوّن مركبات غير ذائبة؛ (4) يقلل تأثير زيادة الأيونات؛ (5) لا يتغير pH عند التخفيف بالماء المقطر؛ (6) يضبط/يقاوم تغير pH ضمن المدى المطلوب.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'مما يتكون المحلول المنظم، واذكر ثلاثاً من خصائص المنظم المثالي في التجارب الحيوية؟',
+                    a: 'يتكون من حامض ضعيف وملحه (أو قاعدة ضعيفة وملحها). ومن خصائصه: لا يخترق الأغشية الخلوية، غير سام للعمليات الحيوية، ولا يتغير pH عند التخفيف بالماء المقطر.'
+                  }
+                ]
+              },
+              {
+                id: 'lec8-hh-common-ion',
+                titleAr: 'معادلة هندرسون-هاسلبالخ، تأثير الأيون المشترك، والعوامل المؤثرة',
+                titleEn: 'Henderson–Hasselbalch Equation, Common Ion Effect & Influencing Factors',
+                arExplanation:
+                  'تربط معادلة هندرسون-هاسلبالخ قيمة pH بثابت التفكك ونسبة تركيز الملح إلى الحامض (أو القاعدة إلى الملح)، وتوضح كيف يثبّت الأيون المشترك (Common ion effect) اتزان التفكك.',
+                points: [
+                  {
+                    en: 'Common Ion Effect & Acetate Example (pH 5.0): Adding sodium acetate increases [Ac-] and represses HAc ionization. For acetate buffer at pH = 5.0 (pKa = 4.76): 5.0 = 4.76 + log([Salt]/[Acid]) -> log(ratio) = 0.24 -> [Salt]/[Acid] = 1.74/1; mole fraction of salt = 1.74/(1+1.74) = 0.635 -> mole% = 63.5%.',
+                    ar: 'تأثير الأيون المشترك ومثال منظم الخلات (pH = 5.0): إضافة خلات الصوديوم تزيد [Ac-] وتكبح تأين HAc. وعند pH = 5.0 (pKa = 4.76): 5.0 = 4.76 + log([Salt]/[Acid]) فتكون النسبة 1.74/1، والكسر المولي للملح 0.635 أي 63.5%.'
+                  },
+                  {
+                    en: 'Factors Influencing Buffer pH: (1) Ionic strength (addition of neutral salts, dilution altering activity coefficients); (2) Temperature (especially basic buffers due to Kw variation with temperature). Weak-base buffers are less common due to volatility/instability and Kw temperature sensitivity.',
+                    ar: 'العوامل المؤثرة في pH المنظم: (1) القوة الأيونية (إضافة أملاح متعادلة أو التخفيف وتغير معاملات الفعالية)؛ (2) درجة الحرارة (خصوصاً المنظمات القاعدية لتأثر Kw بالحرارة). وتُفضّل منظمات الأحماض الضعيفة على القواعد الضعيفة لتطاير وعدم ثبات القواعد وتأثرها بـ Kw.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Henderson–Hasselbalch (Weak Acid / Salt)',
+                    expr: 'pH = pKa + log( [Salt] / [Acid] )',
+                    note: 'أقصى مقاومة لتغير pH تحدث عندما [Salt] = [Acid] أي pH = pKa.'
+                  },
+                  {
+                    label: 'Henderson–Hasselbalch (Weak Base / Salt)',
+                    expr: 'pH = pKw - pKb + log( [Base] / [Salt] )',
+                    note: 'تُشتق من [OH-] = Kb × ([Base]/[Salt]) و Kw = [H3O+][OH-].'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما النسبة المولية [Salt]/[Acid] لتحضير منظم خلات ذي pH = 5.0 إذا علمت أن pKa = 4.76؟',
+                    a: 'تساوي 1.74/1 (لأن antilog(5.0 - 4.76) = antilog(0.24) ≈ 1.74)، والنسبة المئوية المولية للملح تساوي 63.5%.'
+                  }
+                ]
+              },
+              {
+                id: 'lec8-indicators-capacity',
+                titleAr: 'أدلة pH والسعة المنظمة (β) وأمثلة الحسابات',
+                titleEn: 'pH Indicators, Buffer Capacity (β) & Worked Examples',
+                arExplanation:
+                  'تعمل أدلة pH كأحماض أو قواعد عضوية ضعيفة يتغير لونها حول pK_In، بينما تقيس السعة المنظمة (β) قدرة المحلول المنظم على مقاومة التغير في pH.',
+                points: [
+                  {
+                    en: 'pH Indicators & Colorimetric Limits: For HIn + H2O <=> H3O+ + In-, pH = pK_In + log([In-]/[HIn]). Effective visual transition range is pH = pK_In ± 1 (ratio 1/10 to 10/1). Colorimetric method is less accurate than electrometric, can alter pH of unbuffered solutions, and suffers from salt/protein errors.',
+                    ar: 'أدلة pH ومحددات الطريقة اللونية: المدى الفعال لتغير اللون هو pH = pK_In ± 1 (نسبة 1/10 إلى 10/1). والطريقة اللونية أقل دقة من القياس الكهربائي، وقد تغيّر pH المحاليل غير المنظمة وتتأثر بالأملاح والبروتينات.'
+                  },
+                  {
+                    en: 'Buffer Capacity (β) & Examples: β = ΔB / ΔpH. Exact equation: β = 2.303 × C × Ka × [H3O+] / (Ka + [H3O+])^2, where C = [Acid] + [Salt]. Maximum capacity β_max = 0.576 × C occurs when pH = pKa ([H3O+] = Ka). In Example 8-6 (C = 0.20 M, Ka = 1.75×10^-5 at pH = 4.76): β = 0.115. In Pilocarpine example (pKb = 7.15): at pH 7.4, [Base]/[Salt] = 3.56/1 (78% base); at pH 4.0, [Base]/[Salt] = 0.0014/1 (0.13% base).',
+                    ar: 'السعة المنظمة (β) والأمثلة: β = ΔB / ΔpH. المعادلة الدقيقة: β = 2.303 × C × Ka × [H3O+] / (Ka + [H3O+])^2 حيث C = [Acid] + [Salt]. وأقصى سعة β_max = 0.576 × C عند pH = pKa. في مثال 8-6 (C = 0.20 M عند pH = 4.76) تساوي β = 0.115؛ وفي مثال Pilocarpine عند pH 7.4 نسبة القاعدة 78% وعند pH 4.0 تساوي 0.13%.'
+                  }
+                ],
+                table: {
+                  headers: ['مضاف NaOH (mol)', 'pH المحلول (جدول 8-1)', 'السعة المنظمة β'],
+                  rows: [
+                    ['0.00', '4.76', '— (أعلى سعة ابتدائية عند [Salt]=[Acid])'],
+                    ['0.01', '4.85', '0.11'],
+                    ['0.02', '4.94', '0.11'],
+                    ['0.03', '5.03', '0.11'],
+                    ['0.04', '5.13', '0.10'],
+                    ['0.05', '5.24', '0.09'],
+                    ['0.06', '5.36', '0.08']
+                  ]
+                },
+                formulas: [
+                  {
+                    label: 'Buffer Capacity (Exact & Maximum)',
+                    expr: 'β = ΔB / ΔpH = 2.303 · C · [ Ka · [H3O+] / (Ka + [H3O+])^2 ]   |   β_max = 0.576 · C',
+                    note: 'تبلغ السعة المنظمة قيمتها القصوى β_max = 0.576 × C عندما pH = pKa.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'ما قانون السعة المنظمة القصوى (β_max) ومتى تتحقق؟',
+                    a: 'β_max = 0.576 × C (حيث C التركيز الكلي للمنظم)، وتتحقق عندما يكون pH = pKa أي [Salt] = [Acid].'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 'lec-9',
+            code: 'Lec 9',
+            titleAr: 'المحاضرة 9: التحليل الوزني ومعايرات الترسيب وحاصل الإذابة (Ksp)',
+            titleEn: 'Lecture 9: Gravimetric Analysis, Argentometric Titrations & Ksp',
+            sourceFile: 'Gravimetric methods-Lecture-9 - Copy.pdf',
+            summaryAr:
+              'طرق التسحيح الترسيبي الفضية (مور، فولهارد، فاجانز)، التحليل الوزني بالترسيب والتطاير وشروط الراسب، حساب الذوبانية المولية من Ksp، تأثير الحرارة و pH وحاصل الأيونات Q والأيون المشترك، والكواشف المرسّبة غير العضوية والعضوية.',
+            sections: [
+              {
+                id: 'lec9-argentometric',
+                titleAr: 'معايرات الترسيب الفضية: طرق مور، فولهارد، وفاجانز',
+                titleEn: 'Argentometric Titrations: Mohr, Volhard & Fajans Methods',
+                arExplanation:
+                  'تُسمى المعايرات التي تستخدم أيون الفضة (Ag+) معايرات فضية (Argentometric titrations)، وتعتمد على أدلة لونية تكشف نقطة النهاية بطرق مختلفة.',
+                points: [
+                  {
+                    en: 'Mohr Method (Colored Precipitate): Direct titration of halides (e.g. Cl-) with Ag+ forming white AgCl; chromate (CrO4^2-) indicator forms reddish-brown Ag2CrO4 precipitate at endpoint. Must run at pH 7–10: at pH > 10 Ag+ forms brown/black AgOH/Ag2O precipitate; at pH < 7 chromate converts to HCrO4-/Cr2O7^2-, lowering [CrO4^2-] and delaying endpoint.',
+                    ar: 'طريقة مور (راسب ملون): معايرة مباشرة للهاليدات مع Ag+ لتكوين راسب أبيض من AgCl، ودليل الكرومات CrO4^2- يكوّن راسباً بنيّاً محمراً (Reddish-brown) من Ag2CrO4 عند نقطة النهاية. تُجرى عند pH 7–10 لأن pH > 10 يرسب Ag2O، و pH < 7 يحوّل الكرومات إلى ثنائي كرومات فتقل تركيزها ويحدث خطأ.'
+                  },
+                  {
+                    en: 'Volhard Method (Back Titration & Soluble Colored Complex): Indirect back titration for halides/Ag+ using standard KSCN and Fe(III) indicator in acidic medium (HNO3 to prevent Fe(OH)3 precipitation). Excess Ag+ is titrated with SCN- to white AgSCN, then excess SCN- reacts with Fe3+ to give red [FeSCN]2+ complex.',
+                    ar: 'طريقة فولهارد (معايرة رجعية ومعقد ملون ذائب): طريقة غير مباشرة للهاليدات بإضافة فائض معلوم من AgNO3 ثم معايرة الفائض بمحلول قياسي من KSCN بوجود أيون الحديد الثلاثي Fe(III) في وسط حامضي (HNO3 لمنع ترسب Fe(OH)3)، وعند استهلاك الفضة يتكون معقد أحمر [FeSCN]2+.'
+                  },
+                  {
+                    en: 'Fajans Method (Adsorption Indicators): Organic dyes (e.g. fluorescein) adsorb onto precipitate surface at endpoint. Before equivalence point in Cl- titration with Ag+, excess Cl- gives negatively charged AgCl surface repelling anionic dye; past equivalence point, excess Ag+ gives positively charged surface attracting/adsorbing the indicator to give a reddish/colored surface.',
+                    ar: 'طريقة فاجانز (أدلة الامتزاز): تمتز أصباغ عضوية (مثل الفلوريسئين Fluorescein) على سطح الراسب عند نقطة النهاية؛ فقبل نقطة التكافؤ يكون سطح AgCl سالباً بفائض Cl- فينفر الدليل السالب، وبعد نقطة التكافؤ يصبح موجباً بفائض Ag+ فيمتز الدليل ويعطي لوناً محمراً على السطح.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'لماذا تُجرى معايرة مور عند pH بين 7 و 10 ولا تُجرى في وسط حامضي قوي أو قاعدي قوي؟',
+                    a: 'لأن pH > 10 يؤدي إلى ترسب هيدروكسيد/أكسيد الفضة (AgOH/Ag2O)، بينما pH < 7 يحوّل أيون الكرومات إلى ثنائي كرومات فيقل تركيز CrO4^2- ويتأخر ظهور راسب Ag2CrO4.'
+                  }
+                ]
+              },
+              {
+                id: 'lec9-gravimetric-ksp',
+                titleAr: 'التحليل الوزني، شروط الراسب، وحسابات ثابت حاصل الإذابة (Ksp)',
+                titleEn: 'Gravimetric Methods, Precipitate Requirements & Ksp Solubility Calculations',
+                arExplanation:
+                  'يعتمد التحليل الوزني على قياس كتلة مادة نقية ذات صيغة معروفة ترتبط كيميائياً بالمادة المحللة، إما بالترسيب (Precipitation) أو بالتطاير (Volatilization).',
+                points: [
+                  {
+                    en: '4 Requirements of Gravimetric Precipitates: (1) Low solubility so loss during filtration/washing is negligible (< 0.0002 g); (2) Easily filtered and washed free of impurities; (3) Unreactive to atmosphere; (4) Known reproducible composition after drying/ignition.',
+                    ar: 'شروط الراسب في التحليل الوزني: (1) قليل الذوبانية بحيث يكون الفقد أثناء الترشيح والغسل مهملاً (< 0.0002 g)؛ (2) سهل الترشيح والغسل وخالياً من الشوائب؛ (3) غير متفاعل مع الجو؛ (4) ذو تركيب كيميائي معلوم وثابت بعد التجفيف أو الحرق.'
+                  },
+                  {
+                    en: 'Ksp & Molar Solubility (s) Examples: (a) AgCl (Ksp = 1.0×10^-10): s^2 = 1.0×10^-10 -> s = 1.0×10^-5 M. (b) AgX2 (s -> s Ag+ + 2s X-): Ksp = s(2s)^2 = 4s^3. (c) AgIO3 (Ksp = 3.0×10^-8): s = sqrt(3.0×10^-8) = 1.73×10^-4 mol/L vs. La(IO3)3 (Ksp = 6.5×10^-12): s(3s)^3 = 27s^4 = 6.5×10^-12 -> s = (6.5×10^-12 / 27)^(1/4) ≈ 7.0×10^-4 mol/L (La(IO3)3 has higher molar solubility despite smaller Ksp because of stoichiometry).',
+                    ar: 'أمثلة Ksp والذوبانية المولية (s): في AgCl (Ksp = 1.0×10^-10) نجد s = 1.0×10^-5 M. وفي مقارنة AgIO3 (Ksp = 3.0×10^-8 -> s = 1.73×10^-4 mol/L) مع La(IO3)3 (Ksp = 6.5×10^-12 -> 27s^4 = 6.5×10^-12 -> s ≈ 7.0×10^-4 mol/L)، نجد أن ذوبانية La(IO3)3 أعلى رغم صغر Ksp لاختلاف عدد الأيونات الناتجة.'
+                  }
+                ],
+                formulas: [
+                  {
+                    label: 'Solubility Product & Ion Product Criterion',
+                    expr: 'Q < Ksp (Unsaturated)   |   Q = Ksp (Saturated)   |   Q > Ksp (Supersaturated -> Precipitates)',
+                    note: 'يحدث الترسيب عندما يتجاوز حاصل الأيونات Q قيمة Ksp.'
+                  }
+                ],
+                flashcards: [
+                  {
+                    q: 'متى يبدأ ترسب ملح شحيح الذوبان بدلالة حاصل الأيونات (Q) وثابت حاصل الإذابة (Ksp)؟',
+                    a: 'يبدأ الترسيب عندما يصبح المحلول فوق المشبع أي عندما Q > Ksp.'
+                  }
+                ]
+              },
+              {
+                id: 'lec9-factors-precipitants',
+                titleAr: 'تأثير الحرارة و pH والأيون المشترك، والكواشف المرسّبة غير العضوية والعضوية',
+                titleEn: 'Temperature, pH & Common Ion Effects, and Inorganic vs. Organic Precipitants',
+                arExplanation:
+                  'تتأثر عملية الترسيب بدرجة الحرارة و pH والأيون المشترك، ويُختار الكاشف المرسّب (عضوياً أو غير عضوي) بحسب الانتقائية وسهولة الترشيح والكتلة المولية.',
+                points: [
+                  {
+                    en: 'pH & Common Ion Examples: (1) Al(OH)3 precipitation from 0.10 M AlCl3 (Ksp = 2×10^-23): [OH-] = (2×10^-23 / 0.10)^(1/3) = 5.848×10^-8 M -> pOH = 7.23 -> pH = 6.77 (precipitates just above pH 6.77). (2) PbI2 (Ksp = 7.9×10^-9): in water 4s^3 = 7.9×10^-9 -> s = 1.3×10^-3 M; in 0.20 M NaI, [I-] ≈ 0.20 M -> s = 7.9×10^-9 / (0.20)^2 = 2.0×10^-7 M (solubility drops due to common ion effect).',
+                    ar: 'أمثلة pH والأيون المشترك: (1) يبدأ ترسب Al(OH)3 من محلول 0.10 M AlCl3 عند تجاوز pH = 6.77. (2) ذوبانية PbI2 (Ksp = 7.9×10^-9) في الماء تساوي 1.3×10^-3 M، وتنخفض في محلول 0.20 M NaI إلى 2.0×10^-7 M بسبب تأثير الأيون المشترك (I-).'
+                  },
+                  {
+                    en: 'Organic Precipitants Advantages & Examples: Form insoluble chelates, have high molecular weight (larger precipitate mass from small analyte mass), higher selectivity (tunable via pH and masking agents), and bulky easily filtered precipitates. Examples: 8-hydroxyquinoline (oxine — Al3+ at pH 4 vs Mg2+ at higher pH), DMG (Ni2+, Co2+), Cupferron (Fe2+, Ce4+), Nitron (NO3-, ClO4-), Tetraphenylarsonium chloride (Cr2O7^2-, MnO4-).',
+                    ar: 'مميزات وأمثلة الكواشف العضوية: تكوّن معقدات مخلبية (Chelates) قليلة الذوبان، ذات كتلة مولية عالية، وانتقائية أفضل بالتحكم بـ pH والعوامل الحاجبة، ورواسب متكتلة يسهل ترشيحها. أمثلتها: Oxine (8-hydroxyquinoline)، DMG للنيكل والكوبالت، Cupferron، Nitron، و Tetraphenylarsonium chloride.'
+                  }
+                ],
+                table: {
+                  headers: ['الكاشف المرسّب (Precipitant)', 'المادة المحللة (Analyte)', 'الراسب المتكوّن', 'الصيغة الموزونة بعد التجفيف/الحرق'],
+                  rows: [
+                    ['NH4OH', 'Al / Fe', 'Al(OH)3 / Fe(OH)3', 'Al2O3 / Fe2O3'],
+                    ['HCl', 'Ag', 'AgCl', 'AgCl'],
+                    ['AgNO3', 'Cl-', 'AgCl', 'AgCl'],
+                    ['Na2SO4', 'Ba', 'BaSO4', 'BaSO4'],
+                    ['BaCl2', 'SO4^2-', 'BaSO4', 'BaSO4']
+                  ]
+                },
+                flashcards: [
+                  {
+                    q: 'ما أبرز أربع مزايا لاستخدام الكواشف العضوية (Organic precipitants) في التحليل الوزني؟',
+                    a: '1. تكوين معقدات مخلبية (Chelates) قليلة الذوبان؛ 2. ارتفاع الكتلة المولية للكاشف؛ 3. إمكانية زيادة الانتقائية بالتحكم بـ pH؛ 4. تكوين رواسب يسهل ترشيحها والتعامل معها.'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     };
 
-    let currentTrack = 'practical';
-    let showArabic = true;
+    /**
+     * =========================================================================
+     * STATE MANAGEMENT & LOCAL STORAGE PERSISTENCE
+     * =========================================================================
+     */
+    const STORAGE_KEY = 'basrah_pharmacy_analytical_chem_v1';
 
-    function switchTrack(track) {
-      currentTrack = track;
-      document.getElementById('btn-practical').className = track === 'practical'
-        ? 'px-5 py-2.5 rounded-xl font-bold text-sm bg-blue-600 text-white transition'
-        : 'px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
-      document.getElementById('btn-theoretical').className = track === 'theoretical'
-        ? 'px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 text-white transition'
-        : 'px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
-      renderContent();
+    const defaultState = {
+      activeTrack: 'practical',
+      activeLectureId: {
+        practical: 'lab-1',
+        theoretical: 'lec-1'
+      },
+      completedSections: {},
+      bookmarkedSections: {},
+      showBilingual: true,
+      onlyBookmarked: false,
+      searchQuery: ''
+    };
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(defaultState);
+        const parsed = JSON.parse(raw);
+        return {
+          ...structuredClone(defaultState),
+          ...parsed,
+          activeLectureId: {
+            ...defaultState.activeLectureId,
+            ...(parsed.activeLectureId || {})
+          }
+        };
+      } catch (err) {
+        console.error('Failed to load state from localStorage:', err);
+        return structuredClone(defaultState);
+      }
     }
 
-    function toggleTranslation() {
-      showArabic = !showArabic;
-      document.getElementById('transBtn').textContent = showArabic ? 'إخفاء الترجمة العربية' : 'إظهار الترجمة العربية';
-      renderContent();
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (err) {
+        console.error('Failed to save state to localStorage:', err);
+      }
     }
 
-    function renderContent() {
-      const q = document.getElementById('searchInput').value.trim().toLowerCase();
-      const list = studyData[currentTrack].filter(item =>
-        item.title.toLowerCase().includes(q) ||
-        item.arTitle.toLowerCase().includes(q) ||
-        item.summaryEn.toLowerCase().includes(q) ||
-        item.summaryAr.toLowerCase().includes(q)
+    let toastTimer = null;
+    function showToast(msg) {
+      const banner = document.getElementById('toastBanner');
+      const msgEl = document.getElementById('toastMessage');
+      if (!banner || !msgEl) return;
+      msgEl.textContent = msg;
+      banner.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 2400);
+    }
+
+    /**
+     * =========================================================================
+     * TEXT SEARCH & SAFE HIGHLIGHTING HELPERS
+     * =========================================================================
+     */
+    function escapeRegex(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function highlightText(text, query) {
+      if (!text) return '';
+      const q = (query || '').trim();
+      if (!q) return escapeHtml(text);
+      const safeRegex = new RegExp(`(${escapeRegex(q)})`, 'gi');
+      return escapeHtml(text).replace(safeRegex, '<mark class="search-hit">$1</mark>');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function sectionMatchesFilter(section) {
+      if (state.onlyBookmarked && !state.bookmarkedSections[section.id]) {
+        return false;
+      }
+      const q = state.searchQuery.trim().toLowerCase();
+      if (!q) return true;
+
+      const haystack = [
+        section.titleAr,
+        section.titleEn,
+        section.arExplanation,
+        ...(section.points || []).flatMap((p) => [p.ar, p.en]),
+        ...(section.formulas || []).flatMap((f) => [f.label, f.expr, f.note]),
+        ...(section.table ? [...section.table.headers, ...section.table.rows.flat()] : [])
+      ]
+        .join(' ')
+        .toLowerCase();
+
+      return haystack.includes(q);
+    }
+
+    /**
+     * =========================================================================
+     * RENDERING FUNCTIONS
+     * =========================================================================
+     */
+    function getActiveTrackData() {
+      return CURRICULUM_DATA[state.activeTrack] || CURRICULUM_DATA.practical;
+    }
+
+    function getActiveLecture() {
+      const track = getActiveTrackData();
+      const targetId = state.activeLectureId[state.activeTrack];
+      return track.lectures.find((l) => l.id === targetId) || track.lectures[0];
+    }
+
+    function updateProgressUI() {
+      const allSections = Object.values(CURRICULUM_DATA).flatMap((t) =>
+        t.lectures.flatMap((l) => l.sections)
       );
+      const total = allSections.length || 1;
+      const done = allSections.filter((s) => state.completedSections[s.id]).length;
+      const pct = Math.round((done / total) * 100);
 
-      const area = document.getElementById('contentArea');
-      if (!list.length) {
-        area.innerHTML = '<div class="bg-white p-8 rounded-2xl text-center text-slate-500 border">لا توجد نتائج مطابقة للبحث.</div>';
+      const pctText = document.getElementById('progressPercentText');
+      const barFill = document.getElementById('progressBarFill');
+      const bmBadge = document.getElementById('bookmarksCountBadge');
+
+      if (pctText) pctText.textContent = `${pct}% (${done}/${total})`;
+      if (barFill) barFill.style.width = `${pct}%`;
+      if (bmBadge) {
+        const bmCount = Object.values(state.bookmarkedSections).filter(Boolean).length;
+        bmBadge.textContent = String(bmCount);
+      }
+    }
+
+    function renderTrackTabs() {
+      const tabPractical = document.getElementById('tabPractical');
+      const tabTheoretical = document.getElementById('tabTheoretical');
+
+      const activeClasses = ['bg-teal-500', 'text-slate-950', 'shadow'];
+      const inactiveClasses = ['text-slate-200', 'hover:text-white'];
+
+      if (state.activeTrack === 'practical') {
+        tabPractical.classList.add(...activeClasses);
+        tabPractical.classList.remove(...inactiveClasses);
+        tabTheoretical.classList.remove(...activeClasses);
+        tabTheoretical.classList.add(...inactiveClasses);
+      } else {
+        tabTheoretical.classList.add(...activeClasses);
+        tabTheoretical.classList.remove(...inactiveClasses);
+        tabPractical.classList.remove(...activeClasses);
+        tabPractical.classList.add(...inactiveClasses);
+      }
+    }
+
+    function renderHero() {
+      const track = getActiveTrackData();
+      const lectures = track.lectures;
+      const activeLecture = getActiveLecture();
+      const idx = lectures.findIndex((l) => l.id === activeLecture.id);
+
+      document.getElementById('heroBadgeIcon').textContent = track.badgeIcon;
+      document.getElementById('heroBadgeText').textContent = track.badgeText;
+      document.getElementById('heroTitle').textContent = track.title;
+      document.getElementById('heroDescription').textContent = track.description;
+
+      const prevBtn = document.getElementById('prevLectureBtn');
+      const nextBtn = document.getElementById('nextLectureBtn');
+      prevBtn.disabled = idx <= 0;
+      nextBtn.disabled = idx >= lectures.length - 1;
+
+      const pillsBar = document.getElementById('lecturePillsBar');
+      pillsBar.innerHTML = lectures
+        .map((lec) => {
+          const isActive = lec.id === activeLecture.id;
+          const completedCount = lec.sections.filter((s) => state.completedSections[s.id]).length;
+          return `
+            <button
+              type="button"
+              data-select-lecture="${lec.id}"
+              class="px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition flex items-center gap-2 border ${
+                isActive
+                  ? 'bg-teal-400 text-slate-950 border-teal-300 shadow-sm'
+                  : 'bg-white/10 hover:bg-white/20 text-white border-white/15'
+              }"
+            >
+              <span class="font-mono">${escapeHtml(lec.code)}</span>
+              <span>${escapeHtml(lec.titleAr.split(':')[0])}</span>
+              <span class="text-[11px] px-1.5 py-0.5 rounded-md ${
+                isActive ? 'bg-slate-950/15 text-slate-950' : 'bg-black/25 text-teal-200'
+              } font-mono">${completedCount}/${lec.sections.length}</span>
+            </button>
+          `;
+        })
+        .join('');
+    }
+
+    function renderSidebar() {
+      const track = getActiveTrackData();
+      const activeLecture = getActiveLecture();
+
+      document.getElementById('sidebarTrackTitle').textContent = track.sidebarTitle;
+      document.getElementById('sidebarTrackSubtitle').textContent = track.sidebarSubtitle;
+
+      const navList = document.getElementById('lectureNavList');
+      navList.innerHTML = track.lectures
+        .map((lec) => {
+          const isActive = lec.id === activeLecture.id;
+          const done = lec.sections.filter((s) => state.completedSections[s.id]).length;
+          return `
+            <button
+              type="button"
+              data-select-lecture="${lec.id}"
+              class="w-full text-right p-3 rounded-2xl border transition flex items-start justify-between gap-2 ${
+                isActive
+                  ? 'bg-brand-50 border-brand-600 text-brand-900 shadow-xs'
+                  : 'bg-slate-50/70 hover:bg-slate-100 border-slate-200/80 text-slate-700'
+              }"
+            >
+              <div class="min-w-0">
+                <div class="text-xs font-extrabold ${isActive ? 'text-brand-700' : 'text-teal-700'} font-mono">${escapeHtml(lec.code)}</div>
+                <div class="text-xs sm:text-sm font-bold leading-snug mt-0.5">${escapeHtml(lec.titleAr)}</div>
+                <div class="text-[11px] text-slate-500 mt-1 truncate en-text">${escapeHtml(lec.sourceFile)}</div>
+              </div>
+              <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg shrink-0 ${
+                done === lec.sections.length && lec.sections.length > 0
+                  ? 'bg-emerald-100 text-emerald-800'
+                  : 'bg-white text-slate-600 border border-slate-200'
+              }">${done}/${lec.sections.length}</span>
+            </button>
+          `;
+        })
+        .join('');
+
+      const jumpList = document.getElementById('sectionJumpList');
+      jumpList.innerHTML = activeLecture.sections
+        .map((sec, idx) => {
+          const isDone = !!state.completedSections[sec.id];
+          const isBm = !!state.bookmarkedSections[sec.id];
+          return `
+            <a
+              href="#sec-${sec.id}"
+              class="flex items-center justify-between gap-2 px-2.5 py-2 rounded-xl text-xs hover:bg-slate-100 text-slate-700 transition"
+            >
+              <span class="truncate font-semibold">${idx + 1}. ${escapeHtml(sec.titleAr)}</span>
+              <span class="flex items-center gap-1 shrink-0">
+                ${isBm ? '<span class="text-amber-500">★</span>' : ''}
+                ${isDone ? '<span class="text-emerald-600 font-bold">✓</span>' : ''}
+              </span>
+            </a>
+          `;
+        })
+        .join('');
+    }
+
+    function renderActiveLecture() {
+      const lecture = getActiveLecture();
+      const container = document.getElementById('activeLectureContainer');
+      const emptyState = document.getElementById('emptyFilterState');
+      const q = state.searchQuery.trim();
+
+      const matchingSections = lecture.sections.filter(sectionMatchesFilter);
+
+      if (matchingSections.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        document.getElementById('emptyFilterTitle').textContent = state.onlyBookmarked
+          ? 'لا توجد أقسام محفوظة في هذه المحاضرة'
+          : `لا توجد نتائج مطابقة لـ "${q}"`;
         return;
       }
 
-      area.innerHTML = list.map((item, idx) => `
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow transition">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${currentTrack === 'practical' ? 'bg-blue-50 text-blue-700' : 'bg-emerald-50 text-emerald-700'}">
-                ${currentTrack === 'practical' ? 'Practical #' + (idx + 1) : 'Lecture #' + (idx + 1)}
-              </span>
-              <h2 class="text-lg font-extrabold text-slate-900 mt-2 ltr-box">${item.title}</h2>
-              ${showArabic ? `<p class="text-sm font-bold text-slate-700 mt-1">${item.arTitle}</p>` : ''}
-            </div>
+      emptyState.classList.add('hidden');
+
+      const headerHtml = `
+        <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="inline-flex items-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-full bg-brand-50 text-brand-800 border border-brand-200">
+              <span>📄</span>
+              <span class="en-text">${highlightText(lecture.sourceFile, q)}</span>
+            </span>
+            <span class="text-xs text-slate-500 font-semibold">${lecture.sections.length} محاور دراسية</span>
           </div>
-          <p class="text-sm text-slate-600 mt-3 leading-relaxed ltr-box">${item.summaryEn}</p>
-          ${showArabic ? `<p class="text-sm text-slate-700 bg-slate-50 border border-slate-100 rounded-xl p-3 mt-3 leading-relaxed">${item.summaryAr}</p>` : ''}
+          <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">${highlightText(lecture.titleAr, q)}</h3>
+          <p class="text-sm font-semibold text-brand-700 mt-1 en-text">${highlightText(lecture.titleEn, q)}</p>
+          <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">${highlightText(lecture.summaryAr, q)}</p>
         </div>
-      `).join('');
+      `;
+
+      const sectionsHtml = matchingSections
+        .map((sec, i) => {
+          const isCompleted = !!state.completedSections[sec.id];
+          const isBookmarked = !!state.bookmarkedSections[sec.id];
+
+          const pointsHtml = (sec.points || [])
+            .map(
+              (pt) => `
+                <li class="rounded-2xl bg-slate-50/90 border border-slate-200/80 p-3.5 sm:p-4 space-y-2">
+                  <div class="text-sm sm:text-[15px] font-semibold text-slate-800 leading-relaxed en-text">
+                    ${highlightText(pt.en, q)}
+                  </div>
+                  ${
+                    state.showBilingual
+                      ? `<div class="text-xs sm:text-sm text-slate-700 leading-relaxed pt-2 border-t border-slate-200/70">
+                          <span class="font-bold text-teal-700 ml-1">الترجمة العربية:</span>
+                          ${highlightText(pt.ar, q)}
+                        </div>`
+                      : ''
+                  }
+                </li>
+              `
+            )
+            .join('');
+
+          const formulasHtml =
+            sec.formulas && sec.formulas.length
+              ? `
+                <div class="space-y-2.5 mt-4">
+                  <div class="text-xs font-extrabold text-brand-800 uppercase tracking-wide flex items-center gap-1.5">
+                    <span>📐</span>
+                    <span>القوانين والمعادلات التحليلية (Formulas & Equations)</span>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    ${sec.formulas
+                      .map(
+                        (f) => `
+                          <div class="rounded-2xl bg-brand-950 text-white p-4 border border-brand-800 shadow-xs flex flex-col justify-between gap-2">
+                            <div class="flex items-center justify-between gap-2">
+                              <span class="text-xs font-bold text-teal-300 en-text">${highlightText(f.label, q)}</span>
+                              <button
+                                type="button"
+                                data-copy-formula="${escapeHtml(f.expr)}"
+                                class="text-[11px] px-2 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-slate-200 transition no-print"
+                                title="نسخ الصيغة"
+                              >نسخ</button>
+                            </div>
+                            <div class="chem-formula text-sm sm:text-base font-semibold text-amber-300 bg-white/5 px-3 py-2 rounded-xl overflow-x-auto">
+                              ${highlightText(f.expr, q)}
+                            </div>
+                            ${
+                              state.showBilingual && f.note
+                                ? `<p class="text-xs text-slate-300 leading-relaxed">${highlightText(f.note, q)}</p>`
+                                : ''
+                            }
+                          </div>
+                        `
+                      )
+                      .join('')}
+                  </div>
+                </div>
+              `
+              : '';
+
+          const tableHtml = sec.table
+            ? `
+                <div class="mt-4 overflow-x-auto rounded-2xl border border-slate-200">
+                  <table class="w-full text-right border-collapse text-xs sm:text-sm">
+                    <thead>
+                      <tr class="bg-brand-800 text-white">
+                        ${sec.table.headers
+                          .map(
+                            (h) =>
+                              `<th class="px-3.5 py-2.5 font-extrabold border-l border-brand-700 last:border-l-0">${highlightText(h, q)}</th>`
+                          )
+                          .join('')}
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                      ${sec.table.rows
+                        .map(
+                          (row) => `
+                            <tr class="hover:bg-slate-50/90 transition">
+                              ${row
+                                .map(
+                                  (cell) =>
+                                    `<td class="px-3.5 py-2.5 text-slate-700 leading-relaxed border-l border-slate-100 last:border-l-0 align-top">${highlightText(cell, q)}</td>`
+                                )
+                                .join('')}
+                            </tr>
+                          `
+                        )
+                        .join('')}
+                    </tbody>
+                  </table>
+                </div>
+              `
+            : '';
+
+          return `
+            <article
+              id="sec-${sec.id}"
+              class="bg-white rounded-3xl border ${
+                isCompleted ? 'border-emerald-300/90' : 'border-slate-200'
+              } p-5 sm:p-6 shadow-xs transition"
+            >
+              <!-- Section Top Bar -->
+              <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-4 border-b border-slate-100">
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-mono font-extrabold px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700">
+                      المحور ${i + 1}
+                    </span>
+                    ${
+                      isCompleted
+                        ? '<span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800">✓ مكتمل</span>'
+                        : ''
+                    }
+                  </div>
+                  <h4 class="text-lg sm:text-xl font-extrabold text-slate-900 mt-2">
+                    ${highlightText(sec.titleAr, q)}
+                  </h4>
+                  <p class="text-xs sm:text-sm font-semibold text-brand-700 mt-0.5 en-text">
+                    ${highlightText(sec.titleEn, q)}
+                  </p>
+                </div>
+
+                <!-- Bookmark & Complete Controls -->
+                <div class="flex items-center gap-2 shrink-0 no-print">
+                  <button
+                    type="button"
+                    data-toggle-bookmark="${sec.id}"
+                    class="px-3 py-2 rounded-xl text-xs font-extrabold border transition flex items-center gap-1 ${
+                      isBookmarked
+                        ? 'bg-amber-100 text-amber-900 border-amber-300'
+                        : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
+                    }"
+                  >
+                    <span>${isBookmarked ? '★' : '☆'}</span>
+                    <span>${isBookmarked ? 'محفوظ' : 'حفظ'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-toggle-complete="${sec.id}"
+                    class="px-3 py-2 rounded-xl text-xs font-extrabold border transition flex items-center gap-1 ${
+                      isCompleted
+                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white border-emerald-600'
+                        : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200'
+                    }"
+                  >
+                    <span>${isCompleted ? '✓ منجز' : 'تحديد كمنجز'}</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Arabic Concept Overview -->
+              ${
+                state.showBilingual && sec.arExplanation
+                  ? `<div class="mt-4 rounded-2xl bg-teal-50/70 border border-teal-200/70 p-3.5 sm:p-4 text-sm text-slate-800 leading-relaxed">
+                      <span class="font-extrabold text-teal-900 ml-1">ملخص الفكرة:</span>
+                      ${highlightText(sec.arExplanation, q)}
+                    </div>`
+                  : ''
+              }
+
+              <!-- Detailed Key Points -->
+              <ul class="mt-4 space-y-2.5">
+                ${pointsHtml}
+              </ul>
+
+              <!-- Formulas & Tables -->
+              ${formulasHtml}
+              ${tableHtml}
+            </article>
+          `;
+        })
+        .join('');
+
+      container.innerHTML = headerHtml + sectionsHtml;
     }
 
-    renderContent();
+    function renderAll() {
+      renderTrackTabs();
+      renderHero();
+      renderSidebar();
+      renderActiveLecture();
+      updateProgressUI();
+
+      const bilingualBtn = document.getElementById('toggleBilingualBtn');
+      const bilingualLabel = document.getElementById('bilingualLabel');
+      if (bilingualLabel) {
+        bilingualLabel.textContent = state.showBilingual
+          ? 'الترجمة العربية: مفعّلة'
+          : 'الترجمة العربية: مخفية';
+      }
+      if (bilingualBtn) {
+        bilingualBtn.classList.toggle('ring-2', state.showBilingual);
+        bilingualBtn.classList.toggle('ring-teal-400/50', state.showBilingual);
+      }
+
+      const bmFilterBtn = document.getElementById('bookmarksFilterBtn');
+      if (bmFilterBtn) {
+        bmFilterBtn.classList.toggle('bg-amber-500', state.onlyBookmarked);
+        bmFilterBtn.classList.toggle('text-slate-950', state.onlyBookmarked);
+      }
+
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (clearBtn) {
+        clearBtn.classList.toggle('hidden', !state.searchQuery.trim());
+      }
+    }
+
+    /**
+     * =========================================================================
+     * INTERACTIVE FLASHCARD SELF-TEST ENGINE
+     * =========================================================================
+     */
+    let flashcardState = {
+      scope: 'current',
+      cards: [],
+      index: 0,
+      flipped: false
+    };
+
+    function buildFlashcardDeck(scope) {
+      const deck = [];
+      const currentTrack = getActiveTrackData();
+      const currentLecture = getActiveLecture();
+
+      const tracksToScan =
+        scope === 'all'
+          ? [CURRICULUM_DATA.practical, CURRICULUM_DATA.theoretical]
+          : [currentTrack];
+
+      tracksToScan.forEach((tr) => {
+        tr.lectures.forEach((lec) => {
+          if (scope === 'current' && lec.id !== currentLecture.id) return;
+          lec.sections.forEach((sec) => {
+            const topFormula = sec.formulas && sec.formulas[0] ? sec.formulas[0].expr : '';
+            (sec.flashcards || []).forEach((fc) => {
+              deck.push({
+                category: `${tr.badgeIcon} ${lec.code} • ${sec.titleAr}`,
+                q: fc.q,
+                a: fc.a,
+                formula: fc.formula || topFormula
+              });
+            });
+          });
+        });
+      });
+
+      return deck;
+    }
+
+    function openFlashcardsModal(scope = 'current') {
+      flashcardState.scope = scope;
+      flashcardState.cards = buildFlashcardDeck(scope);
+      flashcardState.index = 0;
+      flashcardState.flipped = false;
+
+      document.querySelectorAll('.fc-scope-btn').forEach((btn) => {
+        const active = btn.dataset.fcScope === scope;
+        btn.classList.toggle('bg-brand-600', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-slate-200', !active);
+        btn.classList.toggle('text-slate-700', !active);
+      });
+
+      renderFlashcard();
+      document.getElementById('flashcardModal').classList.remove('hidden');
+    }
+
+    function renderFlashcard() {
+      const inner = document.getElementById('flashcardInner');
+      inner.classList.toggle('rotate-y-180', flashcardState.flipped);
+
+      const cards = flashcardState.cards;
+      const counter = document.getElementById('flashcardCounter');
+      const badge = document.getElementById('fcCategoryBadge');
+      const qEl = document.getElementById('fcQuestion');
+      const aEl = document.getElementById('fcAnswer');
+      const fEl = document.getElementById('fcFormula');
+
+      if (!cards.length) {
+        counter.textContent = '0 / 0';
+        badge.textContent = 'لا توجد بطاقات';
+        qEl.textContent = 'لا توجد بطاقات متاحة في هذا النطاق.';
+        aEl.textContent = '';
+        fEl.innerHTML = '';
+        return;
+      }
+
+      const card = cards[flashcardState.index];
+      counter.textContent = `${flashcardState.index + 1} / ${cards.length}`;
+      badge.textContent = card.category;
+      qEl.textContent = card.q;
+      aEl.textContent = card.a;
+      fEl.innerHTML = card.formula
+        ? `<div class="chem-formula inline-block text-xs sm:text-sm font-semibold bg-slate-900 text-amber-300 px-3 py-1.5 rounded-xl">${escapeHtml(card.formula)}</div>`
+        : '';
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    /**
+     * =========================================================================
+     * EVENT LISTENERS & INITIALIZATION
+     * =========================================================================
+     */
+    function setSidebarOpen(open) {
+      const sidebar = document.getElementById('sidebarNav');
+      const backdrop = document.getElementById('sidebarBackdrop');
+      if (open) {
+        sidebar.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track switchers
+      document.querySelectorAll('.track-tab').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.activeTrack = btn.dataset.track;
+          state.onlyBookmarked = false;
+          saveState();
+          renderAll();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // Delegated clicks for lecture selection, bookmarks, completion, and copy formula
+      document.addEventListener('click', (e) => {
+        const lecBtn = e.target.closest('[data-select-lecture]');
+        if (lecBtn) {
+          state.activeLectureId[state.activeTrack] = lecBtn.dataset.selectLecture;
+          saveState();
+          renderAll();
+          setSidebarOpen(false);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+
+        const bmBtn = e.target.closest('[data-toggle-bookmark]');
+        if (bmBtn) {
+          const secId = bmBtn.dataset.toggleBookmark;
+          state.bookmarkedSections[secId] = !state.bookmarkedSections[secId];
+          saveState();
+          renderAll();
+          showToast(state.bookmarkedSections[secId] ? 'تمت إضافة القسم إلى المحفوظات ★' : 'تمت إزالة القسم من المحفوظات');
+          return;
+        }
+
+        const doneBtn = e.target.closest('[data-toggle-complete]');
+        if (doneBtn) {
+          const secId = doneBtn.dataset.toggleComplete;
+          state.completedSections[secId] = !state.completedSections[secId];
+          saveState();
+          renderAll();
+          showToast(state.completedSections[sec.id] ? 'تم تعليم القسم كمنجز ✓' : 'تم إلغاء حالة الإنجاز');
+          return;
+        }
+
+        const copyBtn = e.target.closest('[data-copy-formula]');
+        if (copyBtn) {
+          const formulaText = copyBtn.getAttribute('data-copy-formula') || '';
+          const tempInput = document.createElement('textarea');
+          tempInput.value = formulaText;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          try {
+            document.execCommand('copy');
+            showToast('تم نسخ المعادلة إلى الحافظة');
+          } catch (_) {
+            showToast('تعذّر النسخ التلقائي');
+          }
+          document.body.removeChild(tempInput);
+        }
+      });
+
+      // Prev / Next Lecture buttons
+      document.getElementById('prevLectureBtn').addEventListener('click', () => {
+        const lectures = getActiveTrackData().lectures;
+        const current = getActiveLecture();
+        const idx = lectures.findIndex((l) => l.id === current.id);
+        if (idx > 0) {
+          state.activeLectureId[state.activeTrack] = lectures[idx - 1].id;
+          saveState();
+          renderAll();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      document.getElementById('nextLectureBtn').addEventListener('click', () => {
+        const lectures = getActiveTrackData().lectures;
+        const current = getActiveLecture();
+        const idx = lectures.findIndex((l) => l.id === current.id);
+        if (idx < lectures.length - 1) {
+          state.activeLectureId[state.activeTrack] = lectures[idx + 1].id;
+          saveState();
+          renderAll();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+
+      // Bilingual toggle
+      document.getElementById('toggleBilingualBtn').addEventListener('click', () => {
+        state.showBilingual = !state.showBilingual;
+        saveState();
+        renderAll();
+      });
+
+      // Bookmarks filter toggle
+      document.getElementById('bookmarksFilterBtn').addEventListener('click', () => {
+        state.onlyBookmarked = !state.onlyBookmarked;
+        saveState();
+        renderAll();
+      });
+
+      // Reset filters button
+      document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+        state.onlyBookmarked = false;
+        state.searchQuery = '';
+        document.getElementById('searchInput').value = '';
+        saveState();
+        renderAll();
+      });
+
+      // Search input
+      const searchInput = document.getElementById('searchInput');
+      searchInput.value = state.searchQuery || '';
+      searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        saveState();
+        renderAll();
+      });
+
+      document.getElementById('clearSearchBtn').addEventListener('click', () => {
+        state.searchQuery = '';
+        searchInput.value = '';
+        saveState();
+        renderAll();
+      });
+
+      // Mobile drawer controls
+      document.getElementById('mobileMenuBtn').addEventListener('click', () => setSidebarOpen(true));
+      document.getElementById('closeSidebarBtn').addEventListener('click', () => setSidebarOpen(false));
+      document.getElementById('sidebarBackdrop').addEventListener('click', () => setSidebarOpen(false));
+
+      // Flashcard modal events
+      document.getElementById('openFlashcardsBtn').addEventListener('click', () => openFlashcardsModal('current'));
+      document.getElementById('closeFlashcardsBtn').addEventListener('click', () => {
+        document.getElementById('flashcardModal').classList.add('hidden');
+      });
+      document.getElementById('flashcardModal').addEventListener('click', (e) => {
+        if (e.target.id === 'flashcardModal') {
+          document.getElementById('flashcardModal').classList.add('hidden');
+        }
+      });
+
+      document.querySelectorAll('.fc-scope-btn').forEach((btn) => {
+        btn.addEventListener('click', () => openFlashcardsModal(btn.dataset.fcScope));
+      });
+
+      const flipCard = () => {
+        flashcardState.flipped = !flashcardState.flipped;
+        renderFlashcard();
+      };
+      document.getElementById('flashcardStage').addEventListener('click', flipCard);
+      document.getElementById('flipCardBtn').addEventListener('click', flipCard);
+
+      document.getElementById('prevCardBtn').addEventListener('click', () => {
+        if (!flashcardState.cards.length) return;
+        flashcardState.flipped = false;
+        flashcardState.index =
+          (flashcardState.index - 1 + flashcardState.cards.length) % flashcardState.cards.length;
+        renderFlashcard();
+      });
+
+      document.getElementById('nextCardBtn').addEventListener('click', () => {
+        if (!flashcardState.cards.length) return;
+        flashcardState.flipped = false;
+        flashcardState.index = (flashcardState.index + 1) % flashcardState.cards.length;
+        renderFlashcard();
+      });
+
+      document.getElementById('shuffleFlashcardsBtn').addEventListener('click', () => {
+        if (!flashcardState.cards.length) return;
+        flashcardState.cards = shuffleArray(flashcardState.cards);
+        flashcardState.index = 0;
+        flashcardState.flipped = false;
+        renderFlashcard();
+        showToast('تم خلط البطاقات عشوائياً');
+      });
+
+      // Initial render
+      renderAll();
+    });
   </script>
 </body>
 </html>
+```
