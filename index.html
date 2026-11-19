@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analytical Chemistry — 1st Stage | Hassan Aqeel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Cairo', 'Inter', sans-serif; background: #f8fafc; color: #0f172a; }
+    .ltr-box { direction: ltr; text-align: left; font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-slate-900 text-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-5 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-3 py-1 rounded-full font-bold">
+          College of Pharmacy — Basrah University
+        </span>
+        <h1 class="text-2xl md:text-3xl font-extrabold mt-2">Analytical Chemistry — 1st Stage</h1>
+        <p class="text-sm text-slate-300 mt-1">منصة الدراسة التفاعلية للكيمياء التحليلية (العملي والنظري) — إعداد وتنظيم: <span class="text-emerald-400 font-bold">Hassan Aqeel</span></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="toggleTranslation()" id="transBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold px-4 py-2 rounded-xl transition">
+          إخفاء الترجمة العربية
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Controls -->
+  <main class="max-w-6xl mx-auto w-full px-4 py-6 flex-1">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <!-- Track Switcher -->
+      <div class="flex gap-2">
+        <button onclick="switchTrack('practical')" id="btn-practical" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-blue-600 text-white transition">
+          العملي (Practical Labs)
+        </button>
+        <button onclick="switchTrack('theoretical')" id="btn-theoretical" class="px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+          النظري (Theoretical Lectures)
+        </button>
+      </div>
+
+      <!-- Search -->
+      <div class="flex-1 min-w-[220px] max-w-md">
+        <input id="searchInput" oninput="renderContent()" type="text" placeholder="ابحث عن تجربة، محاضرة، قانون، أو مصطلح..."
+          class="w-full border border-slate-300 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+    </div>
+
+    <!-- Content Container -->
+    <div id="contentArea" class="space-y-4"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-300 py-5 mt-10 text-center text-sm">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>Analytical Chemistry — 1st Stage | Practical &amp; Theoretical</span>
+      <span>Prepared by <strong class="text-white">Hassan Aqeel</strong></span>
+    </div>
+  </footer>
+
+  <script>
+    const studyData = {
+      practical: [
+        {
+          title: "Lab 1: Safety Standards, Glassware & Equipment",
+          arTitle: "المختبر 1: معايير السلامة والأدوات الزجاجية والمعدات",
+          summaryEn: "Ten lab safety rules, fume hood sash control, conical/volumetric flasks, beakers, graduated cylinders, pipettes, burettes, watch glass, tripod, wire gauze, and Bunsen burner.",
+          summaryAr: "قواعد السلامة العشرة داخل المختبر، استخدام خزانة سحب الغازات، والدورق المخروطي والحجمي والبيكر والأسطوانة المدرجة والماصة والسحاحة وموقد بنسن."
+        },
+        {
+          title: "Lab 2: Titrimetric Analysis & Solution Equations",
+          arTitle: "المختبر 2: التحليل الحجمي وقوانين تحضير المحاليل",
+          summaryEn: "Neutralization, redox, precipitation, and complexation titrations; primary vs. secondary standards; N = (wt * 1000)/(eq.wt * Vml); N = (sp.gr * % * 10)/eq.wt; N1V1 = N2V2.",
+          summaryAr: "أنواع التسحيح، المواد القياسية الأولية والثانوية، وقوانين تحضير المحاليل من المواد الصلبة والسائلة والتخفيف."
+        },
+        {
+          title: "Lab 3: Preparation & Standardization of HCl",
+          arTitle: "المختبر 3: تحضير وتقييس حامض الهيدروكلوريك (HCl)",
+          summaryEn: "Calculating normality of concentrated HCl from sp.gr and %, diluting to target normality, and standardizing against primary standard Na2CO3 using Methyl Orange (M.O).",
+          summaryAr: "حساب نورمالية حامض HCl المركز، تخفيفه، وتقييسه أمام كربونات الصوديوم القياسية باستخدام دليل الميثيل البرتقالي (M.O)."
+        },
+        {
+          title: "Lab 4: Standardization of Sodium Hydroxide (NaOH)",
+          arTitle: "المختبر 4: تقييس هيدروكسيد الصوديوم (NaOH)",
+          summaryEn: "Why NaOH cannot be a primary standard (hygroscopic and reacts with CO2), titrating against standard HCl with Phenolphthalein (ph.ph) to faint pink endpoint.",
+          summaryAr: "سبب عدم اعتبار NaOH مادة قياسية أولية (يمتص الرطوبة ويتفاعل مع CO2)، وتقييسه بحامض HCl القياسي باستخدام الفينولفثالين حتى اللون الوردي الخفيف."
+        },
+        {
+          title: "Lab 5: Acetic Acid Percentage in Vinegar",
+          arTitle: "المختبر 5: تعيين نسبة حامض الخليك في عينة خل",
+          summaryEn: "Weak acid (CH3COOH) with strong base (NaOH) titration using Phenolphthalein indicator, calculating weight of acetic acid and %w/v.",
+          summaryAr: "تسحيح حامض ضعيف (حامض الخليك) مع قاعدة قوية (NaOH) باستخدام دليل الفينولفثالين وحساب الوزن والنسبة المئوية %w/v."
+        }
+      ],
+      theoretical: [
+        {
+          title: "Lecture 1: Nature of Analytical Chemistry & Solutions",
+          arTitle: "المحاضرة 1: طبيعة الكيمياء التحليلية والمحاليل والإلكتروليتات",
+          summaryEn: "Qualitative vs. quantitative analysis; trace/ultratrace/macro/micro sensitivity; true, suspension, and colloidal solutions; strong vs. weak electrolytes.",
+          summaryAr: "التحليل النوعي والكمي، مستويات الحساسية، أنواع المحاليل (حقيقية، معلقة، غروية)، والإلكتروليتات القوية والضعيفة."
+        },
+        {
+          title: "Lecture 2: Units of Concentration",
+          arTitle: "المحاضرة 2: وحدات التركيز والحسابات التحليلية",
+          summaryEn: "Formula weight, moles & millimoles, Molarity (M), Formality (F), Normality (N), equivalent weight, mole fraction (X), %w/w, %w/v, %v/v, and ppt/ppm/ppb.",
+          summaryAr: "الوزن الصيغي، المولات والملي مولات، المولارية، الفورمالية، النورمالية، الكسر المولي، النسب المئوية، وأجزاء بالمليون والبليون."
+        },
+        {
+          title: "Lecture 5: Equilibrium Constants & pH Calculations",
+          arTitle: "المحاضرة 5: ثوابت الاتزان وحسابات pH و pOH والمخاليط",
+          summaryEn: "Autoionization of water (Kw = 1.0e-14 at 25°C), Ka and Kb relations, Arrhenius/Bronsted-Lowry/Lewis theories, pH, pOH, and strong acid/base mixtures.",
+          summaryAr: "التأين الذاتي للماء، ثوابت التفكك، نظريات الأحماض والقواعد، حسابات pH و pOH، وpH لمخاليط الأحماض والقواعد القوية."
+        },
+        {
+          title: "Lecture 8: Buffered Solutions & pH Indicators",
+          arTitle: "المحاضرة 8: المحاليل المنظمة ودلائل pH والسعة المنظمة",
+          summaryEn: "Buffer definition and composition, common ion effect, Henderson-Hasselbalch equation, buffer capacity (beta & beta_max), and pH indicator range.",
+          summaryAr: "تعريف المحلول المنظم وتكوينه، تأثير الأيون المشترك، معادلة هندرسون-هاسلبالخ، السعة المنظمة، ومدى عمل الدلائل."
+        },
+        {
+          title: "Lecture 9: Gravimetric Analysis & Ksp",
+          arTitle: "المحاضرة 9: التحليل الوزني ومعايرات الترسيب وحاصل الإذابة (Ksp)",
+          summaryEn: "Argentometric titrations (Mohr, Volhard, Fajans), precipitation and volatilization gravimetry, solubility product (Ksp), Q vs. Ksp, and inorganic/organic precipitants.",
+          summaryAr: "معايرات الترسيب (مور، فولهارد، فاجانز)، التحليل الوزني بالترسيب والتطاير، ثابت حاصل الإذابة Ksp، والمرسبات العضوية وغير العضوية."
+        }
+      ]
+    };
+
+    let currentTrack = 'practical';
+    let showArabic = true;
+
+    function switchTrack(track) {
+      currentTrack = track;
+      document.getElementById('btn-practical').className = track === 'practical'
+        ? 'px-5 py-2.5 rounded-xl font-bold text-sm bg-blue-600 text-white transition'
+        : 'px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+      document.getElementById('btn-theoretical').className = track === 'theoretical'
+        ? 'px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 text-white transition'
+        : 'px-5 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition';
+      renderContent();
+    }
+
+    function toggleTranslation() {
+      showArabic = !showArabic;
+      document.getElementById('transBtn').textContent = showArabic ? 'إخفاء الترجمة العربية' : 'إظهار الترجمة العربية';
+      renderContent();
+    }
+
+    function renderContent() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const list = studyData[currentTrack].filter(item =>
+        item.title.toLowerCase().includes(q) ||
+        item.arTitle.toLowerCase().includes(q) ||
+        item.summaryEn.toLowerCase().includes(q) ||
+        item.summaryAr.toLowerCase().includes(q)
+      );
+
+      const area = document.getElementById('contentArea');
+      if (!list.length) {
+        area.innerHTML = '<div class="bg-white p-8 rounded-2xl text-center text-slate-500 border">لا توجد نتائج مطابقة للبحث.</div>';
+        return;
+      }
+
+      area.innerHTML = list.map((item, idx) => `
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow transition">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-lg ${currentTrack === 'practical' ? 'bg-blue-50 text-blue-700' : 'bg-emerald-50 text-emerald-700'}">
+                ${currentTrack === 'practical' ? 'Practical #' + (idx + 1) : 'Lecture #' + (idx + 1)}
+              </span>
+              <h2 class="text-lg font-extrabold text-slate-900 mt-2 ltr-box">${item.title}</h2>
+              ${showArabic ? `<p class="text-sm font-bold text-slate-700 mt-1">${item.arTitle}</p>` : ''}
+            </div>
+          </div>
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed ltr-box">${item.summaryEn}</p>
+          ${showArabic ? `<p class="text-sm text-slate-700 bg-slate-50 border border-slate-100 rounded-xl p-3 mt-3 leading-relaxed">${item.summaryAr}</p>` : ''}
+        </div>
+      `).join('');
+    }
+
+    renderContent();
+  </script>
+</body>
+</html>
